@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_12_082756) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_12_085633) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -67,6 +67,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_12_082756) do
     t.index ["user_id"], name: "index_quotations_on_user_id"
   end
 
+  create_table "quote_line_items", force: :cascade do |t|
+    t.string "description"
+    t.string "currency", limit: 3
+    t.integer "cost"
+    t.string "frequency"
+    t.integer "quantity"
+    t.integer "total"
+    t.bigint "quotation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["quotation_id"], name: "index_quote_line_items_on_quotation_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -90,5 +103,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_12_082756) do
   add_foreign_key "people", "forwarders"
   add_foreign_key "quotations", "clients"
   add_foreign_key "quotations", "users"
+  add_foreign_key "quote_line_items", "quotations"
   add_foreign_key "users", "companies"
 end
