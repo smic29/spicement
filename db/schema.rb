@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_12_155139) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_12_161010) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -35,9 +35,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_12_155139) do
     t.bigint "forwarder_id", null: false
     t.string "services"
     t.string "bl_number"
-    t.integer "cost"
-    t.integer "receivable"
-    t.integer "profit"
+    t.float "cost"
+    t.float "receivable"
+    t.float "profit"
     t.string "status", default: "Ongoing"
     t.date "eta"
     t.datetime "created_at", null: false
@@ -104,10 +104,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_12_155139) do
   create_table "quote_line_items", force: :cascade do |t|
     t.string "description"
     t.string "currency", limit: 3
-    t.integer "cost"
+    t.float "cost"
     t.string "frequency"
-    t.integer "quantity"
-    t.integer "total"
+    t.float "quantity"
+    t.float "total"
     t.bigint "quotation_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
