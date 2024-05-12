@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_12_161010) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_12_162650) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -18,9 +18,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_12_161010) do
     t.bigint "user_id", null: false
     t.bigint "booking_id", null: false
     t.bigint "quotation_id", null: false
-    t.float "total_amount"
+    t.decimal "total_amount", precision: 10, scale: 2
     t.string "type"
-    t.float "ex_rate"
+    t.decimal "ex_rate", precision: 10, scale: 2
     t.string "job_description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -35,9 +35,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_12_161010) do
     t.bigint "forwarder_id", null: false
     t.string "services"
     t.string "bl_number"
-    t.float "cost"
-    t.float "receivable"
-    t.float "profit"
+    t.decimal "cost", precision: 10, scale: 2
+    t.decimal "receivable", precision: 10, scale: 2
+    t.decimal "profit", precision: 10, scale: 2
     t.string "status", default: "Ongoing"
     t.date "eta"
     t.datetime "created_at", null: false
@@ -91,7 +91,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_12_161010) do
     t.float "exchange_rate"
     t.string "origin"
     t.string "destination"
-    t.float "total_price"
+    t.decimal "total_price", precision: 10, scale: 2
     t.bigint "user_id", null: false
     t.bigint "client_id", null: false
     t.datetime "created_at", null: false
@@ -104,10 +104,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_12_161010) do
   create_table "quote_line_items", force: :cascade do |t|
     t.string "description"
     t.string "currency", limit: 3
-    t.float "cost"
+    t.decimal "cost", precision: 10, scale: 2
     t.string "frequency"
     t.float "quantity"
-    t.float "total"
+    t.decimal "total", precision: 10, scale: 2
     t.bigint "quotation_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
