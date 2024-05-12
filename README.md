@@ -10,3 +10,6 @@ A lightweight booking management app for professionals engaging in the arrangeme
 - [Faker](https://github.com/faker-ruby/faker)
 
 ## Tests
+
+## Development Process
+See [Development Notes](dev_notes.md)
