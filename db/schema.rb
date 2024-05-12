@@ -10,9 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_12_091200) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_12_143945) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bookings", force: :cascade do |t|
+    t.bigint "quotation_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "forwarder_id", null: false
+    t.string "services"
+    t.string "bl_number"
+    t.integer "cost"
+    t.integer "receivable"
+    t.integer "profit"
+    t.string "status", default: "Ongoing"
+    t.date "eta"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["forwarder_id"], name: "index_bookings_on_forwarder_id"
+    t.index ["quotation_id"], name: "index_bookings_on_quotation_id"
+    t.index ["user_id"], name: "index_bookings_on_user_id"
+  end
 
   create_table "clients", force: :cascade do |t|
     t.string "name", null: false
@@ -98,6 +116,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_12_091200) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "bookings", "forwarders"
+  add_foreign_key "bookings", "quotations"
+  add_foreign_key "bookings", "users"
   add_foreign_key "clients", "users"
   add_foreign_key "forwarders", "users", column: "users_id"
   add_foreign_key "people", "clients"
