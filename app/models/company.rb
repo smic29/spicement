@@ -3,6 +3,7 @@ class Company < ApplicationRecord
   has_many :users
   has_many :clients, through: :users
   has_many :forwarders, through: :users
+  has_many :quotations, through: :users
 
   validates :name, presence: true
 

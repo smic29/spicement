@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_12_081823) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_12_082756) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -53,6 +53,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_12_081823) do
     t.index ["forwarder_id"], name: "index_people_on_forwarder_id"
   end
 
+  create_table "quotations", force: :cascade do |t|
+    t.string "incoterm"
+    t.float "exchange_rate"
+    t.string "origin"
+    t.string "destination"
+    t.float "total_price"
+    t.bigint "user_id", null: false
+    t.bigint "client_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_quotations_on_client_id"
+    t.index ["user_id"], name: "index_quotations_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -74,5 +88,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_12_081823) do
   add_foreign_key "forwarders", "users", column: "users_id"
   add_foreign_key "people", "clients"
   add_foreign_key "people", "forwarders"
+  add_foreign_key "quotations", "clients"
+  add_foreign_key "quotations", "users"
   add_foreign_key "users", "companies"
 end
