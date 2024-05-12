@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_12_031423) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_12_033755) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "clients", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -32,6 +32,18 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_12_031423) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["company_code"], name: "index_companies_on_company_code", unique: true
+  end
+
+  create_table "forwarders", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "contact_name"
+    t.string "phone_number"
+    t.string "email"
+    t.string "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "users_id", null: false
+    t.index ["users_id"], name: "index_forwarders_on_users_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -52,5 +64,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_12_031423) do
   end
 
   add_foreign_key "clients", "users"
+  add_foreign_key "forwarders", "users", column: "users_id"
   add_foreign_key "users", "companies"
 end

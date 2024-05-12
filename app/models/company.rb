@@ -2,6 +2,7 @@ class Company < ApplicationRecord
   before_create :generate_company_code
   has_many :users
   has_many :clients, through: :users
+  has_many :forwarders, through: :users
 
   validates :name, presence: true
 
