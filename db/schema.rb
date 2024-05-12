@@ -10,9 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_12_143945) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_12_155139) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "billings", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "booking_id", null: false
+    t.bigint "quotation_id", null: false
+    t.float "total_amount"
+    t.string "type"
+    t.float "ex_rate"
+    t.string "job_description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["booking_id"], name: "index_billings_on_booking_id"
+    t.index ["quotation_id"], name: "index_billings_on_quotation_id"
+    t.index ["user_id"], name: "index_billings_on_user_id"
+  end
 
   create_table "bookings", force: :cascade do |t|
     t.bigint "quotation_id", null: false
@@ -116,6 +131,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_12_143945) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "billings", "bookings"
+  add_foreign_key "billings", "quotations"
+  add_foreign_key "billings", "users"
   add_foreign_key "bookings", "forwarders"
   add_foreign_key "bookings", "quotations"
   add_foreign_key "bookings", "users"

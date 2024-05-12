@@ -5,6 +5,7 @@ class Company < ApplicationRecord
   has_many :forwarders, through: :users
   has_many :quotations, through: :users
   has_many :bookings, through: :users
+  has_many :billings, through: :users
 
   validates :name, presence: true
 

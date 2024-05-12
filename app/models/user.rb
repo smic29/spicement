@@ -4,6 +4,7 @@ class User < ApplicationRecord
   has_many :forwarders
   has_many :quotations
   has_many :bookings
+  has_many :billings
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
