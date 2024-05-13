@@ -28,3 +28,39 @@ end
 require 'factory_bot_rails'
 # After the built-in comment to "add additional require below this line"
 ```
+
+## Processes Learned
+### Scoping with devise
+Since I'm allowing user creation under unique companies, I needed to scope users under a company ID:
+```ruby
+validates :email, presence: true, uniqueness: { case_sensitive: false, scope: :company_id }
+```
+
+Due to `devise` it wasn't a walk in the park to just test it and expect it to work on the get go. The following needed to be added in the user model:
+```ruby
+def will_save_change_to_email?
+    false
+  end
+
+  def email_changed?
+    false
+  end
+```
+I also needed a migration file to add indexes and remove the email index from user:
+```ruby
+def change
+  add_index :users, [:email, :company_id], unique: true
+  remove_index :users, :email
+end
+```
+Finally, a config needs to be added in `initializers/devise.rb`:
+```ruby
+config.authentication_keys = [ :email, :company_id ]
+```
+
+#### Resources:
+- [Stack Overflow](https://stackoverflow.com/questions/57569530/custom-email-unique-validation-not-working-on-devise)
+- [Stack Overflow2](https://stackoverflow.com/questions/18338353/devise-allow-email-uniqueness-within-scope)
+
+#### Thoughts:
+At this stage of development, I haven't implemented controllers or views yet. If this causes issues on those fronts, I need to update this.

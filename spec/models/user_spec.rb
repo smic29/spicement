@@ -10,6 +10,38 @@ RSpec.describe User, type: :model do
     it { should have_many(:billings) }
   end
 
+  describe 'validations' do
+    let!(:company1) { FactoryBot.create(:company) }
+    let!(:company2) { FactoryBot.create(:company) }
+
+    let!(:user1) { FactoryBot.create(:user, email: 'test@example.com', company_id: company1.id) }
+
+    context 'when creating a user with the same email but different company_id' do
+      let(:user2) { FactoryBot.build(:user, email: 'test@example.com', company_id: company2.id) }
+
+      it 'should validate uniqueness within the scope of company_id' do
+        expect(user2).to be_valid
+      end
+    end
+
+    context 'when creating a user with an already existing email on the same company_id' do
+      let(:user4) { FactoryBot.build(:user, email: 'test@example.com', company_id: company1.id) }
+
+      it 'should not be valid' do
+        expect(user4).not_to be_valid
+        expect(user4.errors[:email]).to include('has already been taken')
+      end
+    end
+
+    context 'when creating a user with a unique email within the same company' do
+      let(:user3) { FactoryBot.build(:user, email: 'another_test@example.com', company_id: company1.id) }
+
+      it 'should be valid' do
+        expect(user3).to be_valid
+      end
+    end
+  end
+
   describe 'methods' do
     describe '#full_name' do
       let(:user) { FactoryBot.build(:user, first_name: 'John', last_name: 'Doe') }

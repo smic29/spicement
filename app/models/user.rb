@@ -11,7 +11,18 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  validates :email, presence: true, uniqueness: { case_sensitive: false, scope: :company_id }
+
+  def will_save_change_to_email?
+    false
+  end
+
+  def email_changed?
+    false
+  end
+
   def full_name
     "#{first_name} #{last_name}"
   end
+
 end
