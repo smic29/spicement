@@ -7,6 +7,7 @@ class Company < ApplicationRecord
   has_many :bookings, through: :users
   has_many :billings, through: :users
 
+  validate :approved_not_present_on_creation
   validates :name, presence: true
   validates :email, presence: true
 
@@ -24,6 +25,10 @@ class Company < ApplicationRecord
 
       self.company_code = "#{base_code}#{random_code}"
     end
+  end
+
+  def approved_not_present_on_creation
+    errors.add(:approved, "should not be present on creations") if approved.present? & !persisted?
   end
 
 end
