@@ -9,3 +9,22 @@ I based most of the tables around the spreadsheets commonly used by my wife. I s
 ![Initial Schema](app/assets/images/Schema_051324.jpg)
 
 This is just the base I'm working with, which means its likely to change. The current associations are also not set in stone and would be updated as needed.
+
+## Tests
+To properly set-up FactoryBot and Shoulda-matchers, the following code should be added in `spec/rails_helper.rb`
+```ruby
+# Should be under Rspec.configure
+config.include FactoryBot::Syntax::Methods
+
+# After the configure block
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
+end
+
+# Not sure if this is needed but I placed:
+require 'factory_bot_rails'
+# After the built-in comment to "add additional require below this line"
+```
