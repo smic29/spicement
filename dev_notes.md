@@ -11,6 +11,7 @@ I based most of the tables around the spreadsheets commonly used by my wife. I s
 This is just the base I'm working with, which means its likely to change. The current associations are also not set in stone and would be updated as needed.
 
 ## Tests
+### Setup
 To properly set-up FactoryBot and Shoulda-matchers, the following code should be added in `spec/rails_helper.rb`
 ```ruby
 # Should be under Rspec.configure
@@ -28,6 +29,9 @@ end
 require 'factory_bot_rails'
 # After the built-in comment to "add additional require below this line"
 ```
+### Implementation
+#### Models
+- 83 examples on Day 4. Tests were implemented alongside model associations, validations, and basic methods.
 
 ## Processes Learned
 ### Scoping with devise
