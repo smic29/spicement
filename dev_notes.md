@@ -31,7 +31,12 @@ require 'factory_bot_rails'
 ```
 ### Implementation
 #### Models
-- 83 examples on Day 4. Tests were implemented alongside model associations, validations, and basic methods.
+- Tests were implemented alongside model associations, validations, and basic methods.
+  ```bash
+  Finished in 0.97858 seconds (files took 1.71 seconds to load)
+  83 examples, 0 failures
+  ```
+
 
 ## Processes Learned
 ### Scoping with devise
