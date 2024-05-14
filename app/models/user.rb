@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  include Nameable
+
   belongs_to :company
   has_many :clients
   has_many :forwarders
@@ -20,9 +22,4 @@ class User < ApplicationRecord
   def email_changed?
     false
   end
-
-  def full_name
-    "#{first_name} #{last_name}"
-  end
-
 end
