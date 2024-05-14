@@ -73,3 +73,10 @@ config.authentication_keys = [ :email, :company_id ]
 
 #### Thoughts:
 At this stage of development, I haven't implemented controllers or views yet. If this causes issues on those fronts, I need to update this.
+
+### CSS with Bootstrap Present on Creation
+When I was adding custom fonts, I noticed that `Hotwire::LiveReload` wasn't updating when I made css changes which I found quite weird. Then checking further, I noticed that I can't even add custom css scripts.
+
+Upon searching stack overflow, apparently I'm supposed to watch the css using `yarn watch:css` which would require a separate terminal in order for css changes to be made.
+
+It's also on the scripts under `package.json` in the application's root directory.
