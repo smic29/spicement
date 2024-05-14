@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_14_075741) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_14_083143) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -86,9 +86,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_14_075741) do
     t.datetime "updated_at", null: false
     t.string "first_name"
     t.string "last_name"
+    t.bigint "user_id", null: false
     t.index ["client_id"], name: "index_people_on_client_id"
     t.index ["email"], name: "index_people_on_email", unique: true
     t.index ["forwarder_id"], name: "index_people_on_forwarder_id"
+    t.index ["user_id"], name: "index_people_on_user_id"
   end
 
   create_table "quotations", force: :cascade do |t|
@@ -146,6 +148,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_14_075741) do
   add_foreign_key "forwarders", "users"
   add_foreign_key "people", "clients"
   add_foreign_key "people", "forwarders"
+  add_foreign_key "people", "users"
   add_foreign_key "quotations", "clients"
   add_foreign_key "quotations", "users"
   add_foreign_key "quote_line_items", "quotations"

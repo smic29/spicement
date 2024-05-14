@@ -2,6 +2,7 @@ class User < ApplicationRecord
   include Nameable
 
   belongs_to :company
+  has_many :people
   has_many :clients
   has_many :forwarders
   has_many :quotations

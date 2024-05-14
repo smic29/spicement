@@ -8,6 +8,7 @@ RSpec.describe User, type: :model do
     it { should have_many(:quotations) }
     it { should have_many(:bookings) }
     it { should have_many(:billings) }
+    it { should have_many(:people) }
   end
 
   describe 'validations' do
@@ -42,12 +43,14 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe 'methods' do
-    describe '#full_name' do
-      let(:user) { FactoryBot.build(:user, first_name: 'John', last_name: 'Doe') }
+  describe 'concerns' do
+    describe 'Nameable' do
+      describe '#full_name' do
+        let(:user) { FactoryBot.build(:user, first_name: 'John', last_name: 'Doe') }
 
-      it 'returns the full name of the user' do
-        expect(user.full_name).to eq('John Doe')
+        it 'returns the full name of the user' do
+          expect(user.full_name).to eq('John Doe')
+        end
       end
     end
   end
