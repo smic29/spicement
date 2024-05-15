@@ -12,6 +12,9 @@ Rails.application.routes.draw do
 
   # Company Routes
   resources :companies, only: [ :new, :create ]
+  scope "companies" do
+    get "success" => "companies#application_success", as: :application_success
+  end
 
   # Defines the root path route ("/")
   root "pages#index"

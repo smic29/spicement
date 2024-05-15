@@ -1,16 +1,16 @@
 <%= turbo_frame_tag "auth_frame" do %>
-    <div class="col-6 mx-auto">
+    <div class="col-6 mx-auto shadow p-3 rounded">
         <h1 class="font-robos">Apply for Company Login</h1>
         <p class="lead">
             Submit an application for our team to review. Once approved, your personal company code will be sent to your email address.
         </p>
         <%= form_with model: @company do |f| %>
             <div class="form-floating mb-3">
-                <%= f.text_field :name, class: "form-control", placeholder: "Company Name"%>
+                <%= f.text_field :name, class: "form-control", placeholder: "Company Name", required: true %>
                 <%= f.label :name, "Company Name" %>
             </div>
             <div class="form-floating mb-3">
-                <%= f.text_field :email, class: "form-control", placeholder: "Email Address" %>
+                <%= f.text_field :email, class: "form-control", placeholder: "Email Address", required: true %>
                 <%= f.label :email, "Email Address" %>
                 <div class="form-text">
                     This email will be used as your company's manager account.
