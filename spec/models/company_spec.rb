@@ -11,10 +11,16 @@ RSpec.describe Company, type: :model do
   end
 
   describe 'validations' do
+
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:email) }
+
+    subject { build(:company) }
+    it { should validate_uniqueness_of(:name) }
+    it { should validate_uniqueness_of(:email) }
+
     it "ensures approved is not present on creation" do
-      company = FactoryBot.build(:company, approved: true)
+      company = build(:company, approved: true)
       expect(company).to be_invalid
       expect(company.errors[:approved]).to include("should not be present on creations")
     end

@@ -8,12 +8,14 @@ class Company < ApplicationRecord
   has_many :billings, through: :users
 
   validate :approved_not_present_on_creation
-  validates :name, presence: true
-  validates :email, presence: true
+  validates :name, presence: true, uniqueness: true
+  validates :email, presence: true, uniqueness: true
 
   private
 
   def generate_company_code
+    return if name.blank?
+
     words = name.split(/\s+/)
     initials = words.map { |word| word.slice(0, 2).upcase }.join
 
