@@ -9,11 +9,13 @@ Rails.application.routes.draw do
 
   # Pages Routes
   get "login_signup" => "pages#login_signup", as: :auth
+  get ":company_code" => "sessions#new", as: :company_login
 
   # Company Routes
-  resources :companies, only: [ :new, :create ]
-  scope "companies" do
-    get "success" => "companies#application_success", as: :application_success
+  resources :companies, only: [ :new, :create ] do
+    member do
+      get "success", as: :success_new
+    end
   end
 
   # Defines the root path route ("/")

@@ -11,7 +11,7 @@ class CompaniesController < ApplicationController
       respond_to do |format|
         format.html { redirect_to application_success_path }
         format.turbo_stream { render turbo_stream: [
-          turbo_stream.update("auth_frame", template: "companies/application_success")
+          turbo_stream.update("auth_frame", template: "companies/success")
         ]}
       end
     else
@@ -20,8 +20,8 @@ class CompaniesController < ApplicationController
     end
   end
 
-  def application_success
-
+  def success
+    @company = Company.find(params[:id])
   end
 
   private
