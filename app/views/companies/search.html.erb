@@ -1,10 +1,17 @@
 <%= turbo_frame_tag "auth_frame" do %>
 <div class="col-6 mx-auto shadow p-3 rounded">
     <h4 class="font-robos">Enter Company Code</h4>
-    <%= form_with url: new_user_session_path, method: :get do |f| %>
+    <%= form_with url: verify_companies_path, method: :post do |f| %>
         <div class="input-group mb-2">
             <i class="bi bi-key input-group-text"></i>
+            <% unless @fail %>
             <%= f.text_field :company_code, required: true, class: "form-control" %>
+            <% else %>
+            <%= f.text_field :company_code, required: true, class: "form-control is-invalid", value: @fail %>
+            <div class="invalid-feedback">
+                Invalid Company Code or Not Approved
+            </div>
+            <% end %>
         </div>
         <%= f.submit "Go", class: "btn btn-outline-success" %>
     <% end %>

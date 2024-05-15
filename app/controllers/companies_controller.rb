@@ -25,7 +25,19 @@ class CompaniesController < ApplicationController
   end
 
   def search
+    @fail = params[:fail] || false
+  end
 
+  def verify
+    company = Company.find_by(company_code: params[:company_code].upcase)
+
+    # Will need to check for .approve here
+    if company
+      redirect_to new_user_session_path(id: company.id)
+    else
+      @fail = params[:company_code]
+      render :search, status: :unprocessable_entity
+    end
   end
 
   private
