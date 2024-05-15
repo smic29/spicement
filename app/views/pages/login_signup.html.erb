@@ -2,10 +2,12 @@
     <div class="row h-100 justify-content-center align-items-center">
         <div class="col-12">
             <div class="row text-center flex-column">
-                <span class="font-robo">
-                    You are in the login or sign up page
-                </span>
-                <div>
+                <div class="font-robo mb-3">
+                    <%= turbo_frame_tag "auth_frame" do %>
+                    <%= link_to 'Sign Up', new_company_path, class: 'btn btn-outline-success' %>
+                    <% end %>
+                </div>
+                <div class="text-start">
                     <%= link_to 'Back', root_path, class: 'btn btn-outline-secondary font-robo' %>
                 </div>
             </div>

@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   # Pages Routes
   get "login_signup" => "pages#login_signup", as: :auth
 
+  # Company Routes
+  resources :companies, only: [ :new, :create ]
+
   # Defines the root path route ("/")
   root "pages#index"
 end
