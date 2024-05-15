@@ -24,6 +24,10 @@ class CompaniesController < ApplicationController
     @company = Company.find(params[:id])
   end
 
+  def search
+
+  end
+
   private
 
   def company_params

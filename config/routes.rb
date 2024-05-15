@@ -9,12 +9,14 @@ Rails.application.routes.draw do
 
   # Pages Routes
   get "login_signup" => "pages#login_signup", as: :auth
-  get ":company_code" => "sessions#new", as: :company_login
 
   # Company Routes
   resources :companies, only: [ :new, :create ] do
     member do
       get "success", as: :success_new
+    end
+    collection do
+      get "search", as: :search
     end
   end
 

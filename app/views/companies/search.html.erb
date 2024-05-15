@@ -1,0 +1,14 @@
+<%= turbo_frame_tag "auth_frame" do %>
+<div class="col-6 mx-auto shadow p-3 rounded">
+    <h4 class="font-robos">Enter Company Code</h4>
+    <%= form_with url: new_user_session_path, method: :get do |f| %>
+        <div class="input-group mb-2">
+            <i class="bi bi-key input-group-text"></i>
+            <%= f.text_field :company_code, required: true, class: "form-control" %>
+        </div>
+        <%= f.submit "Go", class: "btn btn-outline-success" %>
+    <% end %>
+</div>
+
+
+<% end %>
