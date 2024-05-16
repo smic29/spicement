@@ -1,17 +1,17 @@
 <%= turbo_frame_tag "auth_frame" do %>
   <h2><%= @company.name %></h2>
 
-  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name), data: { turbo_frame: :_top }) do |f| %>
     <%= f.hidden_field :company_id, value: @company.id %>
     
     <div class="field">
       <%= f.label :email %><br />
-      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", required: true %>
     </div>
 
     <div class="field">
       <%= f.label :password %><br />
-      <%= f.password_field :password, autocomplete: "current-password" %>
+      <%= f.password_field :password, autocomplete: "current-password", required: true %>
     </div>
 
     <div class="actions">
