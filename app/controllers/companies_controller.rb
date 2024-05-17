@@ -22,6 +22,8 @@ class CompaniesController < ApplicationController
 
   def success
     @company = Company.find(params[:id])
+
+    redirect_to search_companies_path if @company.approved
   end
 
   def search

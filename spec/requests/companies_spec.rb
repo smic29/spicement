@@ -52,10 +52,20 @@ RSpec.describe "Companies", type: :request do
   end
 
   describe "GET companies/:id/success" do
-    it "returns a successful response" do
-      get success_new_company_path(company)
-      expect(response).to be_successful
-      expect(response.body).to include company.email
+    context "with unapproved company status" do
+      it "returns a successful response" do
+        get success_new_company_path(company)
+        expect(response).to be_successful
+        expect(response.body).to include company.email
+      end
+    end
+
+    context "with approved company status" do
+      it "redirects to company login process" do
+        company.update(approved: true)
+        get success_new_company_path(company)
+        expect(response).to redirect_to search_companies_path
+      end
     end
   end
 
