@@ -12,7 +12,7 @@ RSpec.describe "Sessions", type: :request do
         get new_user_session_path(id: company.id)
         expect(response).to be_successful
         expect(response.body).to include "#{company.name}"
-        expect(response.body).to include "Password"
+        expect(response.body).to include '<i class="bi bi-eye-slash input-group-text"></i>'
       end
     end
 
