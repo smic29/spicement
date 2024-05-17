@@ -33,16 +33,28 @@ class CompaniesController < ApplicationController
   def verify
     company = Company.find_by(company_code: params[:company_code].upcase)
 
-    # Will need to check for .approve here
-    if company
+    if company&.approved
       redirect_to new_user_session_path(id: company.id)
+    elsif company && company.approved == false
+      verification_response("Company has not been approved", params[:company_code])
     else
-      @fail = params[:company_code]
-      render :search, status: :unprocessable_entity
+      verification_response("Invalid Company Code", params[:company_code])
     end
   end
 
   private
+
+  def verification_response(msg, company_code)
+    flash[:alert] = msg
+    @fail = company_code
+    respond_to do |format|
+      format.html { render :search, status: :unprocessable_entity }
+      format.turbo_stream { render turbo_stream: [
+        turbo_stream.update("auth_frame", template: 'companies/search'),
+        prepend_toast
+      ]}
+    end
+  end
 
   def company_params
     params.require(:company).permit(:name, :email)

@@ -79,9 +79,20 @@ RSpec.describe "Companies", type: :request do
 
   describe "POST companies/verify" do
     context "with valid company code" do
-      it "redirects to the new user session path" do
-        post verify_companies_path, params: { company_code: company.company_code }
-        expect(response).to redirect_to new_user_session_path(id: company.id)
+      context "and company is approved" do
+          it "redirects to the new user session path" do
+            company.update(approved: true)
+            post verify_companies_path, params: { company_code: company.company_code }
+            expect(response).to redirect_to new_user_session_path(id: company.id)
+          end
+      end
+      context "and company is not approved" do
+        it "redirects back to companies/search" do
+          post verify_companies_path, params: { company_code: company.company_code }
+          expect(response).to have_http_status :unprocessable_entity
+          expect(response.body).to include 'Enter Company Code'
+          expect(flash[:alert]).to include "Company has not been approved"
+        end
       end
     end
 
@@ -90,7 +101,7 @@ RSpec.describe "Companies", type: :request do
         post verify_companies_path, params: { company_code: "INVALID" }
         expect(response).to have_http_status :unprocessable_entity
         expect(response.body).to include "INVALID"
-        expect(response.body).to include "Invalid Company Code or Not Approved"
+        expect(flash[:alert]).to include "Invalid Company Code"
       end
     end
   end
