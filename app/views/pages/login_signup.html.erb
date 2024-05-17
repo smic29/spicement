@@ -3,13 +3,10 @@
         <div class="col-12">
             <div class="row text-center flex-column">
                 <div class="font-robo mb-3">
-                    <%= turbo_frame_tag "auth_frame" do %>
+                    <%= turbo_frame_tag "auth_frame", src: new_company_path do %>
                     <%= link_to 'Sign Up', new_company_path, class: 'btn btn-outline-success' %>
                     <%= link_to 'Log In', search_companies_path, class: 'btn btn-outline-success' %>
                     <% end %>
-                </div>
-                <div class="text-start">
-                    <%= link_to 'Back', root_path, class: 'btn btn-outline-secondary font-robo' %>
                 </div>
             </div>
         </div>
