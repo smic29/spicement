@@ -16,6 +16,13 @@ class Users::SessionsController < Devise::SessionsController
 
   # POST /resource/sign_in
   def create
+    company_id = params.dig(:user, :company_id)
+    @company = Company.find(company_id)
+
+    unless @company.approved
+      redirect_to new_user_session_path(id: @company.id) and return
+    end
+
     self.resource = warden.authenticate!(auth_options)
     if resource && resource.active_for_authentication?
       set_flash_message!(:notice, :signed_in)
