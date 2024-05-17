@@ -36,7 +36,12 @@ require 'factory_bot_rails'
   Finished in 0.97858 seconds (files took 1.71 seconds to load)
   83 examples, 0 failures
   ```
-
+#### Controllers
+- As of 05/17/24
+  ```bash
+  Finished in 0.72448 seconds (files took 1.6 seconds to load)
+  16 examples, 0 failures, 1 pending
+  ```
 
 ## Processes Learned
 ### Scoping with devise
