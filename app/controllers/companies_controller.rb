@@ -9,7 +9,7 @@ class CompaniesController < ApplicationController
     if @company.save
       flash[:notice] = "Application Submitted"
       respond_to do |format|
-        format.html { redirect_to application_success_path }
+        format.html { redirect_to success_new_company_path(@company) }
         format.turbo_stream { render turbo_stream: [
           turbo_stream.update("auth_frame", template: "companies/success")
         ]}
