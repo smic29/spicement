@@ -9,9 +9,6 @@
                 <%= f.text_field :company_code, required: true, class: "form-control" %>
                 <% else %>
                 <%= f.text_field :company_code, required: true, class: "form-control is-invalid", value: @fail %>
-                <div class="invalid-feedback">
-                    Invalid Company Code or Not Approved
-                </div>
                 <% end %>
             </div>
         </div>
