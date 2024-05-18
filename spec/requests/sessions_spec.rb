@@ -20,6 +20,7 @@ RSpec.describe "Sessions", type: :request do
       it 'redirects back to initial step of login process' do
         get new_user_session_path(id: company.id)
         expect(response).to redirect_to search_companies_path(fail: company.company_code)
+        expect(flash[:alert]).to include "User login is not allowed yet"
       end
     end
   end
@@ -54,6 +55,7 @@ RSpec.describe "Sessions", type: :request do
 
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.body).to include("#{user.company.name}")
+        expect(flash[:alert]).to eq "Invalid Email, Company or password."
       end
     end
   end

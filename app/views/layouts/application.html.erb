@@ -17,7 +17,9 @@
     </main>
     <aside>
       <div class="position-absolute top-0 start-50 translate-middle-x z-5" id="toast_container">
-        
+        <% if alert || notice %>
+          <%= render 'shared/alerts' %>
+        <% end %>
       </div>
     </aside>
   </body>

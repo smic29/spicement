@@ -7,9 +7,10 @@ class Users::SessionsController < Devise::SessionsController
   def new
     id = params[:id] || params.dig(:user, :company_id)
     @company = Company.find(id)
-    if @company.approved
+    if @company&.approved
       super
     else
+      flash[:alert] = "User login is not allowed yet"
       redirect_to search_companies_path(fail: @company.company_code)
     end
   end
@@ -30,7 +31,7 @@ class Users::SessionsController < Devise::SessionsController
       yield resource if block_given?
       respond_with resource, location: after_sign_in_path_for(resource)
     else
-      render :new, status: :unprocessable_entity
+      # Nothing really gets triggered here. It's weird
     end
   end
 
