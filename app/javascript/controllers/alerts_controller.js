@@ -7,5 +7,9 @@ export default class extends Controller {
     const toast = new bootstrap.Toast(toastEl)
 
     toast.show()
+
+    this.element.addEventListener('hidden.bs.toast', () => {
+      this.element.remove()
+    })
   }
 }
