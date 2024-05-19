@@ -1,9 +1,9 @@
-<div class="container-fluid vh-100">
+<div class="container-fluid vh-100 ps-0">
     <div class="d-flex h-100">
-        <div class="col-2 bg-dark">
-
+        <div class="col-1 h-100 d-flex align-items-center justify-content-center border-end bg-secondary-subtle">
+            <%= render 'admin/navbar' %>
         </div>
-        <div class="col-10">
+        <div class="col-11">
             <div class="container">
                 <div class="col-12">
                     <h1 class="font-robos">Admin Dashboard</h1>
@@ -12,7 +12,7 @@
                 Logged in under: <%= current_user.company.name %> <br>
                 as: <%= current_user.email %> <br>
                 <br>
-                <%= button_to 'Log Out', destroy_user_session_path, method: :delete, class: "btn btn-outline-danger", data: { turbo_frame: :_top } %>
+                
                 <% end %>
             </div>
         </div>
