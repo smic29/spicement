@@ -2,6 +2,7 @@
     <h4 class="font-robos">
         Companies requesting approval
     </h4>
+    <% if @companies %>
     <% @companies.each do |company| %>
         <div class="font-robo d-flex justify-content-between align-items-center rounded-3 border shadow p-3">
             <div class="flex-column">
@@ -13,11 +14,16 @@
                 </span>
             </div>
             <div class="text-center">
-                <%= button_to "Approve", admin_company_path(company), method: :post, class: "btn btn-secondary btn-sm" %>
+                <%= button_to "Approve", admin_company_path(company), method: :patch, class: "btn btn-secondary btn-sm" %>
                 <div class="small fw-light">
                     <%= "requested " + time_ago_in_words(company.created_at) + " ago" %>
                 </div>
             </div>
+        </div>
+    <% end %>
+    <% else %>
+        <div class="text-center fw-light font-robo">
+            No applications to approve
         </div>
     <% end %>
 <% end %>

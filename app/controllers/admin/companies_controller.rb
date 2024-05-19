@@ -11,12 +11,23 @@ class Admin::CompaniesController < ApplicationController
   end
 
   def update
+    service = Admin::ApprovalService.new(@company)
 
+    if service.call
+      respond_to do |format|
+        flash[:notice] = "Company Approved. User Created. Email Sent"
+        format.html { redirect_to root_path }
+        format.turbo_stream { render turbo_stream: [
+          turbo_stream.update("admin_frame", template: 'admin/companies/index'),
+          prepend_toast
+        ]}
+      end
+    end
   end
 
   private
 
   def set_company
-    @company = Company.find(params[:company])
+    @company = Company.find(params[:id])
   end
 end

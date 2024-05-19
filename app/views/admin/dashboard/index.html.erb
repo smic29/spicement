@@ -8,10 +8,21 @@
                 <div class="col-12">
                     <h1 class="font-robos">Admin Dashboard</h1>
                 </div>
-                <%= turbo_frame_tag "admin_frame", src: admin_companies_path do %>
-                Logged in under: <%= current_user.company.name %> <br>
-                as: <%= current_user.email %> <br>
-                <br>
+                <%= turbo_frame_tag "admin_frame" do %>
+                Companies using application: <%= @companies.count %>
+                
+                <% @companies.each do |company| %>
+                <div class="p-3 rounded shadow mb-3 d-flex flex-column">
+                    <span class="lead">
+                        <%= company.name %>
+                    </span>
+                    <% if company.approved %>
+                        <% company.users.each do |user| %>
+                            <%= user.email %>
+                        <% end %>
+                    <% end %>
+                </div>
+                <% end %>
                 
                 <% end %>
             </div>
