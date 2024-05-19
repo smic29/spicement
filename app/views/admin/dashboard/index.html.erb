@@ -1,5 +1,20 @@
-You are in the admin Dashboard <br>
-Logged in under: <%= current_user.company.name %> <br>
-as: <%= current_user.email %> <br>
-<br>
-<%= button_to 'Log Out', destroy_user_session_path, method: :delete, class: "btn btn-outline-danger" %>
+<div class="container-fluid vh-100">
+    <div class="d-flex h-100">
+        <div class="col-2 bg-dark">
+
+        </div>
+        <div class="col-10">
+            <div class="container">
+                <div class="col-12">
+                    <h1 class="font-robos">Admin Dashboard</h1>
+                </div>
+                <%= turbo_frame_tag "admin_frame" do %>
+                Logged in under: <%= current_user.company.name %> <br>
+                as: <%= current_user.email %> <br>
+                <br>
+                <%= button_to 'Log Out', destroy_user_session_path, method: :delete, class: "btn btn-outline-danger", data: { turbo_frame: :_top } %>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>
