@@ -24,6 +24,10 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   authenticated :user do
     root "admin/dashboard#index", as: :admin_root, constraints: lambda { |request| request.env['warden'].user.admin? unless request.env['warden'].user.nil? }
+    namespace :admin do
+      resources :companies, only: [ :index, :show, :update ]
+    end
+
     root "dashboard#index", as: :auth_root
   end
   root "pages#index"

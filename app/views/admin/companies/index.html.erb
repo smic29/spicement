@@ -1,0 +1,23 @@
+<%= turbo_frame_tag "admin_frame" do %>
+    <h4 class="font-robos">
+        Companies requesting approval
+    </h4>
+    <% @companies.each do |company| %>
+        <div class="font-robo d-flex justify-content-between align-items-center rounded-3 border shadow p-3">
+            <div class="flex-column">
+                <h6 class="font-robos">
+                    <%= company.name %>
+                </h6>
+                <span class="small">
+                    <%= company.email %>
+                </span>
+            </div>
+            <div class="text-center">
+                <%= button_to "Approve", admin_company_path(company), method: :post, class: "btn btn-secondary btn-sm" %>
+                <div class="small fw-light">
+                    <%= "requested " + time_ago_in_words(company.created_at) + " ago" %>
+                </div>
+            </div>
+        </div>
+    <% end %>
+<% end %>

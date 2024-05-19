@@ -3,7 +3,7 @@
         <%= link_to 'Home', root_path, class: "nav-link active" %>
     </li>
     <li class="nav-item">
-        <%= link_to 'For Approval', root_path, class: "nav-link" %>
+        <%= link_to 'For Approval', admin_companies_path, class: "nav-link", data: { turbo_frame: :admin_frame} %>
     </li>
 </ul>
 
