@@ -42,10 +42,10 @@ config.include Devise::Test::IntegrationHelpers, type: :request
   83 examples, 0 failures
   ```
 #### Controllers
-- As of 05/17/24
+- As of 05/20/24
   ```bash
-  Finished in 0.72448 seconds (files took 1.6 seconds to load)
-  16 examples, 0 failures, 1 pending
+  Finished in 1.95 seconds (files took 1.65 seconds to load)
+  34 examples, 0 failures, 1 pending
   ```
 
 ## Processes Learned
