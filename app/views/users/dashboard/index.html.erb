@@ -1,3 +1,5 @@
+<div class="container-fluid vh-100 px-0">
+<%= render 'users/navbar' %>
 Hello World! <br>
 Logged in under: <%= current_user.company.name %> <br>
 as: <%= current_user.email %>
@@ -6,3 +8,4 @@ as: <%= current_user.email %>
 
 
 <%= button_to 'Log Out', destroy_user_session_path, method: :delete, class: "btn btn-outline-danger" %>
+</div>
