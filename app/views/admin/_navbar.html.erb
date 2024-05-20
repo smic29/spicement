@@ -1,9 +1,9 @@
-<ul class="nav nav-underline flex-column font-robo align-items-center">
+<ul class="nav nav-underline flex-column font-robo align-items-center" data-controller="navbar">
     <li class="nav-item">
-        <%= link_to 'Home', root_path, class: "nav-link active" %>
+        <%= link_to 'Home', root_path, class: "nav-link user-select-none", data: { turbo_frame: :admin_frame, navbar_target: "links" } %>
     </li>
     <li class="nav-item">
-        <%= link_to 'For Approval', admin_companies_path, class: "nav-link", data: { turbo_frame: :admin_frame} %>
+        <%= link_to 'For Approval', admin_companies_path, class: "nav-link user-select-none", data: { turbo_frame: :admin_frame, navbar_target: "links"} %>
     </li>
 </ul>
 
