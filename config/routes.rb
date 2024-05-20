@@ -6,6 +6,20 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 
+  # Defines the root path route ("/")
+  authenticated :user do
+    root "users/dashboard#index", as: :user_root, constraints: lambda { |request| !request.env['warden'].user.admin? unless request.env['warden'].user.nil? }
+    root "admin/dashboard#index", as: :admin_root, contraints: lambda { |request| request.env['warden'].user.admin? unless request.env['warden'].user.nil? }
+  end
+  root "pages#index"
+
+  # authenticated routes
+  authenticated :user do
+    namespace :admin do
+      resources :companies, only: [ :index, :show, :update ]
+    end
+  end
+
 
   # Pages Routes
   get "login_signup" => "pages#login_signup", as: :auth
@@ -20,15 +34,4 @@ Rails.application.routes.draw do
       post "verify", as: :verify
     end
   end
-
-  # Defines the root path route ("/")
-  authenticated :user do
-    root "admin/dashboard#index", as: :admin_root, constraints: lambda { |request| request.env['warden'].user.admin? unless request.env['warden'].user.nil? }
-    namespace :admin do
-      resources :companies, only: [ :index, :show, :update ]
-    end
-
-    root "dashboard#index", as: :auth_root
-  end
-  root "pages#index"
 end

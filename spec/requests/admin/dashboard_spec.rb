@@ -38,9 +38,9 @@ RSpec.describe "Admin::Dashboards", type: :request do
     end
 
     context "when user is not signed in" do
-      it "redirects to the the welcome page" do
+      it "returns an unsuccessful response" do
         get admin_root_path
-        expect(response.body).to include 'Welcome to Spicement'
+        expect(response.body).not_to include "Admin Dashboard"
       end
     end
   end

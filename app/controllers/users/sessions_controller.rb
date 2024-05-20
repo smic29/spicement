@@ -48,6 +48,6 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def after_sign_in_path_for(resource)
-    auth_root_path
+    root_path
   end
 end
