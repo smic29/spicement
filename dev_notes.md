@@ -85,3 +85,24 @@ When I was adding custom fonts, I noticed that `Hotwire::LiveReload` wasn't upda
 Upon searching stack overflow, apparently I'm supposed to watch the css using `yarn watch:css` which would require a separate terminal in order for css changes to be made.
 
 It's also on the scripts under `package.json` in the application's root directory.
+
+### Constraining routes
+In this project, I chose to have a constraint added to accessing the admin dashboard. I wanted the user to be authenticated first, then a check to happen if the users `admin` column is true.
+
+Searching through posted questions in StackOverflow, I found this:
+```ruby
+constraints: lambda { |request| request.env['warden'].user.admin? 
+```
+I added this constraint when setting my root paths, they are structured this way since the routes are match top to bottom and having the two other root paths above this one would have the admin login to the dashboard index first.
+
+```ruby
+authenticated :user do
+  root "admin/dashboard#index", as: :admin_root, constraints: lambda { |request| request.env['warden'].user.admin? unless request.env['warden'].user.nil? }
+  namespace :admin do
+    resources :companies, only: [ :index, :show, :update ]
+  end
+
+  root "dashboard#index", as: :auth_root
+end
+root "pages#index"
+```
