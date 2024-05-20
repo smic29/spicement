@@ -111,3 +111,22 @@ authenticated :user do
 end
 root "pages#index"
 ```
+
+## Issues Encountered
+### Popper not working properly with importmaps
+While trying to implement navbar with dropdowns, I noticed that they were not functioning properly. Checking on the console, it looks like `@popperjs/core` wasn't being loaded properly.
+
+A [StackOverflow answer](https://stackoverflow.com/questions/77929977/ruby-on-rails-7-popperjs-core-errors) about this says that there's currently an issue with importmaps. 
+
+What I did to resolve this issue was to add this pin on `config/importmap.rb`.
+```ruby
+pin "@popperjs/core", to: "https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+```
+Then importing in in `app/javascript/application.js`
+```ruby
+import "@popperjs/core"
+
+# It's vital that this is imported before bootstrap.
+```
+
+Doing this I was able to make dropdowns and toasts work.
