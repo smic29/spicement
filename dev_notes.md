@@ -29,6 +29,11 @@ end
 require 'factory_bot_rails'
 # After the built-in comment to "add additional require below this line"
 ```
+
+To be able to use Devise::Test helpers, the following should be added in `spec/rails_helper.rb`
+```ruby
+config.include Devise::Test::IntegrationHelpers, type: :request
+```
 ### Implementation
 #### Models
 - Tests were implemented alongside model associations, validations, and basic methods.
