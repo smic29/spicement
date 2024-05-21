@@ -9,4 +9,9 @@ class ApplicationController < ActionController::Base
     authenticate_user!
     redirect_to root_path, alert: 'You are not authorized to access this page.' unless current_user.admin?
   end
+
+  def authenticate_manager!
+    authenticate_user!
+    redirect_to root_path, alert: 'Unauthorized' unless current_user.manager?
+  end
 end
