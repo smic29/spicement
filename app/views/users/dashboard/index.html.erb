@@ -4,7 +4,7 @@
         <%= render 'users/sidebar' %>
 
         <div class="col-10 flex-grow-1">
-            <div class="container p-3">
+            <div class="container h-100 d-flex align-items-center justify-content-center">
                 <%= turbo_frame_tag "users_frame" do %>
                 Hello World! <br>
                 Logged in under: <%= current_user.company.name %> <br>
