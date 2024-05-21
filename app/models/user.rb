@@ -23,4 +23,8 @@ class User < ApplicationRecord
   def email_changed?
     false
   end
+
+  def manager?
+    self.email == self.company.email
+  end
 end

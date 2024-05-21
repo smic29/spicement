@@ -72,4 +72,20 @@ RSpec.describe User, type: :model do
       expect(invalid_user).not_to be_valid
     end
   end
+
+  describe 'methods' do
+    describe '#manager?' do
+      let(:company) { create(:company) }
+      let(:manager) { create(:user, email: company.email, company_id: company.id) }
+      let(:not_manager) { create(:user, company_id: company.id) }
+
+      it 'returns true for a company manager' do
+        expect(manager.manager?).to be_truthy
+      end
+
+      it 'returns false for a company user' do
+        expect(not_manager.manager?).to be_falsey
+      end
+    end
+  end
 end
