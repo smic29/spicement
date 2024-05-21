@@ -5,11 +5,13 @@
 
         <div class="col-10 flex-grow-1">
             <div class="container p-3">
+                <%= turbo_frame_tag "users_frame" do %>
                 Hello World! <br>
                 Logged in under: <%= current_user.company.name %> <br>
                 as: <%= current_user.email %>
                 <br>
                 User is manager: <%= current_user.manager? %>
+                <% end %>
             </div>
         </div>
     </div>

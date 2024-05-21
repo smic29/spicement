@@ -7,6 +7,17 @@
             <%= badge_for current_user %>
         </div>
 
+        <div class="text-center">
+            <nav class="nav flex-column nav-underline">
+                <% if current_user.manager? %>
+                <%= link_to 'Add A User', root_path, class: "nav-link text-reset" %>
+                <% end %>
+                <%= link_to 'Quotations', root_path, class: "nav-link text-reset" %>
+                <%= link_to 'Bookings', root_path, class: "nav-link text-reset" %>
+                <%= link_to 'Billings', root_path, class: "nav-link text-reset" %>
+            </nav>
+        </div>
+
         <%= button_to 'Log Out', destroy_user_session_path, method: :delete, class: "btn btn-outline-danger" %>
     </div>
 </div>
