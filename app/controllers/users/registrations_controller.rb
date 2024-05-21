@@ -13,7 +13,40 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    super
+    # super
+    build_resource(sign_up_params)
+
+    resource.save
+    yield resource if block_given?
+    if resource.persisted?
+      if resource.active_for_authentication?
+        set_flash_message! :notice, :signed_up
+        respond_to do |format|
+          format.html { redirect_to root_path, notice: "User successfully created" }
+          flash[:notice] = "User successfully created"
+          format.turbo_stream { render turbo_stream: [
+            turbo_stream.replace("users_frame") {
+              "<turbo-frame id='users_frame' src='#{root_path}'></turbo-frame>".html_safe
+            },
+            prepend_toast
+          ]}
+        end
+      else
+        # TODO: Check what conditions would trigger this codeblock
+        respond_to do |format|
+          flash[:alert] = "I am experimenting on this and have no idea when this would proc"
+          format.html { redirect_to root_path }
+          format.turbo_stream { render turbo_stream: [
+            turbo_stream.replace("users_frame", template: "users/dashboard/index"),
+            prepend_toast
+          ]}
+        end
+      end
+    else
+      clean_up_passwords resource
+      set_minimum_password_length
+      respond_with resource
+    end
   end
 
   # GET /resource/edit
@@ -44,7 +77,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:company_id])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:company_id, :first_name, :last_name])
   end
 
   # If you have extra params to permit, append them to the sanitizer.
