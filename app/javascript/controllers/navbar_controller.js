@@ -4,7 +4,7 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = [ "links" ]
   connect() {
-    const turbo_frame = document.querySelector('#admin_frame')
+    const turbo_frame = document.querySelector('#admin_frame') || document.querySelector('#users_frame')
 
     this.setInitialActive(turbo_frame)
     this.setEventListener()

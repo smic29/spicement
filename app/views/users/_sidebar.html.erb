@@ -8,13 +8,13 @@
         </div>
 
         <div class="text-center">
-            <nav class="nav flex-column nav-underline">
+            <nav class="nav flex-column nav-underline" data-controller="navbar">
                 <% if current_user.manager? %>
-                <%= link_to 'Add A User', new_user_registration_path, class: "nav-link text-reset", data: { turbo_frame: :users_frame } %>
+                <%= link_to 'Add A User', new_user_registration_path, class: "nav-link text-reset user-select-none", data: { turbo_frame: :users_frame, navbar_target: :links } %>
                 <% end %>
-                <%= link_to 'Quotations', root_path, class: "nav-link text-reset" %>
-                <%= link_to 'Bookings', root_path, class: "nav-link text-reset" %>
-                <%= link_to 'Billings', root_path, class: "nav-link text-reset" %>
+                <%= link_to 'Quotations', root_path, class: "nav-link text-reset user-select-none", data: { navbar_target: :links } %>
+                <%= link_to 'Bookings', root_path, class: "nav-link text-reset user-select-none", data: { navbar_target: :links } %>
+                <%= link_to 'Billings', root_path, class: "nav-link text-reset user-select-none", data: { navbar_target: :links } %>
             </nav>
         </div>
 
