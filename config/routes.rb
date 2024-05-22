@@ -18,6 +18,10 @@ Rails.application.routes.draw do
     namespace :admin do
       resources :companies, only: [ :index, :show, :update ]
     end
+
+    namespace :users do
+      get "welcome" => "dashboard#show", as: :welcome
+    end
   end
 
 

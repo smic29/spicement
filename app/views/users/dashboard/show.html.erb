@@ -1,0 +1,11 @@
+<%= turbo_frame_tag "users_frame" do %>
+<% if current_user.manager? %>
+    You are viewing this page as a Manager. <br>
+    <%= !current_user.full_name.blank? ? current_user.full_name : 'Please edit your profile to display your name' %> <br>
+    <%= current_user.email %> <br>
+<% else %>
+    You are viewing this page as a User under <%= current_user.company.name %> <br>
+    <%= !current_user.full_name.blank? ? current_user.full_name : 'Please edit your profile to display your name' %> <br>
+    <%= current_user.email %> <br>
+<% end %>
+<% end %>
