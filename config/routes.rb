@@ -21,6 +21,7 @@ Rails.application.routes.draw do
 
     namespace :users do
       get "welcome" => "dashboard#show", as: :welcome
+      get "profile" => "profile#show", as: :profile
     end
   end
 

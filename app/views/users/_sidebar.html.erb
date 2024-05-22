@@ -17,7 +17,11 @@
                 <%= link_to 'Billings', root_path, class: "nav-link text-reset user-select-none", data: { navbar_target: :links } %>
             </nav>
         </div>
-
+        <div class="text-center">
+        <%= link_to users_profile_path, class: "text-reset", data: { turbo_frame: :users_frame } do %>
+            <i class="bi bi-person-badge fs-1"></i>
+        <% end %>
         <%= button_to 'Log Out', destroy_user_session_path, method: :delete, class: "btn btn-outline-danger" %>
+        </div>
     </div>
 </div>
