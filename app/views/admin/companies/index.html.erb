@@ -2,7 +2,7 @@
     <h4 class="font-robos">
         Companies requesting approval
     </h4>
-    <% if @companies %>
+    <% unless @companies.empty? %>
     <% @companies.each do |company| %>
         <div class="font-robo d-flex justify-content-between align-items-center rounded-3 border shadow p-3">
             <div class="flex-column">
