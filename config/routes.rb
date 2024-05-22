@@ -22,6 +22,10 @@ Rails.application.routes.draw do
     namespace :users do
       get "welcome" => "dashboard#show", as: :welcome
       get "profile" => "profile#show", as: :profile
+      scope :profile do
+        get "edit" => "profile#edit", as: :profile_edit
+      end
+      patch "profile" => "profile#update"
     end
   end
 

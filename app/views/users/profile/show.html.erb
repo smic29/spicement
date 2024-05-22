@@ -1,34 +1,36 @@
 <%= turbo_frame_tag "users_frame" do %>
     <div class="p-5 rounded-4 shadow-lg">
         <div class="font-robos mb-3">
-            <h4 class="mb-0"><%= current_user.company.name %></h4>
-            <%= badge_for current_user %>
+            <h4 class="mb-0"><%= @user.company.name %></h4>
+            <%= badge_for @user %>
         </div>
 
         <div class="font-robo">
             <div class="form-floating mb-2 text-center">
-                <input type="email" class="form-control-plaintext" value=<%= current_user.email %> placeholder="Email" disabled>
+                <input type="email" class="form-control-plaintext" value=<%= @user.email %> placeholder="Email" disabled>
                 <label>Email</label>
             </div>
 
+            <%= turbo_frame_tag "user_profile_frame" do %>
             <div class="row mb-3">
                 <div class="col-6">
                     <div class="form-floating border rounded-3">
-                        <input type="text" class="form-control-plaintext" value=<%= value_if_blank current_user.first_name %> placeholder="First Name" disabled>
+                        <input type="text" class="form-control-plaintext" value=<%= value_if_blank @user.first_name %> placeholder="First Name" disabled>
                         <label>First Name</label>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="form-floating border rounded-3">
-                        <input type="text" class="form-control-plaintext" value=<%= value_if_blank current_user.last_name %> placeholder="Last Name" disabled>
+                        <input type="text" class="form-control-plaintext" value=<%= value_if_blank @user.last_name %> placeholder="Last Name" disabled>
                         <label>Last Name</label>
                     </div>
                 </div>
             </div>
 
             <div class="text-center">
-                <%= link_to 'Edit', root_path, class: "btn btn-outline-warning" %>
+                <%= link_to 'Edit', users_profile_edit_path, class: "btn btn-outline-warning", data: { turbo_frame: :user_profile_frame } %>
             </div>
+            <% end %>
         </div>
     </div>
 <% end %>
