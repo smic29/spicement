@@ -1,20 +1,20 @@
 <div class="row">
     <div class="col-4">
-        <input type="text" class="form-control">
+        <%= f.text_field :description, class: "form-control" %>
     </div>
     <div class="col">
-        <input type="text" class="col form-control">
+        <%= f.text_field :currency, class: "form-control" %>
     </div>
     <div class="col">
-        <input type="text" class="col form-control">
+        <%= f.number_field :cost, class: "form-control" %>
     </div>
     <div class="col">
-        <input type="text" class="col form-control">
+        <%= f.text_field :frequency, class: "form-control" %>
     </div>
     <div class="col">
-        <input type="text" class="col form-control">
+        <%= f.number_field :quantity, class: "form-control" %>
     </div>
     <div class="col-2">
-        <input type="number" class="form-control-plaintext text-center" value=69420 readonly>
+        <%= f.number_field :total, class: "form-control-plaintext text-center", readonly: true %>
     </div>
 </div>
