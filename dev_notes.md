@@ -37,15 +37,22 @@ config.include Devise::Test::IntegrationHelpers, type: :request
 ### Implementation
 #### Models
 - Tests were implemented alongside model associations, validations, and basic methods.
+- As of 05/23/24
   ```bash
-  Finished in 0.97858 seconds (files took 1.71 seconds to load)
-  83 examples, 0 failures
+  Finished in 0.99889 seconds (files took 1.69 seconds to load)
+  87 examples, 0 failures
   ```
 #### Controllers
-- As of 05/20/24
+- As of 05/23/24
   ```bash
-  Finished in 1.95 seconds (files took 1.65 seconds to load)
-  34 examples, 0 failures, 1 pending
+  Finished in 2.71 seconds (files took 1.64 seconds to load)
+  43 examples, 0 failures
+  ```
+#### Helpers
+- As of 05/23/24
+  ```bash
+  Finished in 0.40748 seconds (files took 1.6 seconds to load)
+  6 examples, 0 failures, 3 pending
   ```
 
 ## Processes Learned
