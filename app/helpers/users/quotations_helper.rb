@@ -1,0 +1,2 @@
+module Users::QuotationsHelper
+end

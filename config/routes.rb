@@ -26,6 +26,8 @@ Rails.application.routes.draw do
         get "edit" => "profile#edit", as: :profile_edit
       end
       patch "profile" => "profile#update"
+
+      resources :quotations, only: [ :new, :create ]
     end
   end
 
