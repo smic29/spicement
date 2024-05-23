@@ -11,5 +11,15 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe Users::QuotationsHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  describe "#headers_for" do
+    it "returns a nested span within a div parent" do
+      expect(helper.headers_for(one: 1, two: 2, three: 3)).to include "one", "two", "three", "col-1", "col-2", "col-3"
+    end
+  end
+
+  describe "#field_title" do
+    it "Wraps the string in span with lead class" do
+      expect(helper.field_title("Test")).to eq '<span class="lead">Test</span>'
+    end
+  end
 end

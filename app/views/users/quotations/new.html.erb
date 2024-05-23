@@ -1,3 +1,61 @@
 <%= turbo_frame_tag "users_frame" do %>
-Hello, World! This is the quotations creation page
+<div class="border shadow-lg p-4 rounded w-100">
+    <div class="font-robos">
+        <h3>Quotation</h3>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row font-robo mb-3">
+            <%= render "users/quotations/new_client" %>
+
+            <div class="col border rounded p-3">
+                <%= field_title "Details" %>
+                <div class="input-group mb-2">
+                    <span class="input-group-text">Status</span>
+                    <select class="form-select">
+                        <option value="draft">Draft</option>
+                        <option value="approved">Approved</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                </div>
+
+                <div class="input-group mb-2">
+                    <span class="input-group-text">Exchange Rate</span>
+                    <input type="number" class="form-control">
+                    <span class="input-group-text">PHP</span>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row font-robo mb-3">
+            <div class="col-12 border rounded p-3">
+                <%= field_title "Shipment" %>
+                <div class="input-group mb-2">
+                    <span class="input-group-text">Origin</span>
+                    <input type="text" class="form-control">
+                    <span class="input-group-text">Destination</span>
+                    <input type="text" class="form-control">
+                </div>
+
+                 <div class="input-group mb-2">
+                    <span class="input-group-text">Incoterm</span>
+                    <input type="text" class="form-control">
+                </div>
+            </div>
+        </div>
+
+        <div class="row font-robo">
+            <div class="col-12 border rounded p-3">
+                <%= field_title "Charges" %>
+                <div class="row mb-1">
+                    <%= headers_for Description: 4, Currency: 0, Cost: 0, Frequency: 0, Quantity: 0, Total: 2 %>
+                </div>
+                <%= render 'users/quotations/new_quotelineitem' %>
+            </div>
+        </div>
+    </div>
+
+
+</div>
 <% end %>
