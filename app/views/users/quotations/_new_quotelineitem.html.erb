@@ -1,22 +1,22 @@
 <div data-quote-line-items-target="template">
-    <div class="row position-relative mb-2">
+    <div class="row position-relative mb-2" data-controller="quote-total-calc">
         <div class="col-4">
             <%= f.text_field :description,  class: "form-control" %>
         </div>
         <div class="col">
-            <%= f.text_field :currency, class: "form-control" %>
+            <%= f.select :currency, QuoteLineItem::ISO_CURRENCIES, {}, class: "form-select", data: { quote_total_calc_target: :currency, action: "quote-total-calc#updateTotal" } %>
         </div>
         <div class="col">
-            <%= f.number_field :cost, class: "form-control" %>
+            <%= f.number_field :cost, class: "form-control", data: { quote_total_calc_target: :factor, action: "quote-total-calc#updateTotal" } %>
         </div>
         <div class="col">
             <%= f.text_field :frequency, class: "form-control" %>
         </div>
         <div class="col">
-            <%= f.number_field :quantity, class: "form-control" %>
+            <%= f.number_field :quantity, class: "form-control", data: { quote_total_calc_target: :factor, action: "quote-total-calc#updateTotal" } %>
         </div>
         <div class="col-2">
-            <%= f.number_field :total, class: "form-control-plaintext text-center", readonly: true %>
+            <%= f.number_field :total, class: "form-control-plaintext text-center", readonly: true, data: { quote_total_calc_target: :total } %>
         </div>
         
         <div class="d-none">

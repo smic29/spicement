@@ -1,7 +1,7 @@
 class QuoteLineItem < ApplicationRecord
   belongs_to :quotation
 
-  ISO_CURRENCIES = %w[USD PHP].freeze
+  ISO_CURRENCIES = %w[PHP USD].freeze
 
   validates :currency, length: { is: 3 }, inclusion: { in: ISO_CURRENCIES }
   validates :description, length: { maximum: 255 }
