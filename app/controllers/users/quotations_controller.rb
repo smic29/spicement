@@ -3,6 +3,7 @@ class Users::QuotationsController < ApplicationController
 
   def new
     @quotation = current_user.quotations.new
+    @quotation.quote_line_items.build
   end
 
   def create
@@ -14,7 +15,7 @@ class Users::QuotationsController < ApplicationController
   def quotation_params
     params.require(:quotation).permit(
       :status, :exchange_rate, :origin, :destination, :incoterm, client: [:name, :address],
-      quotelineitems: [:description, :currency, :cost, :frequency, :quantity, :total]
+      quote_line_items_attributes: [:description, :currency, :cost, :frequency, :quantity, :total]
     )
   end
 end

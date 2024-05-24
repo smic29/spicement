@@ -1,20 +1,29 @@
-<div class="row">
-    <div class="col-4">
-        <%= f.text_field :description, class: "form-control" %>
-    </div>
-    <div class="col">
-        <%= f.text_field :currency, class: "form-control" %>
-    </div>
-    <div class="col">
-        <%= f.number_field :cost, class: "form-control" %>
-    </div>
-    <div class="col">
-        <%= f.text_field :frequency, class: "form-control" %>
-    </div>
-    <div class="col">
-        <%= f.number_field :quantity, class: "form-control" %>
-    </div>
-    <div class="col-2">
-        <%= f.number_field :total, class: "form-control-plaintext text-center", readonly: true %>
+<div data-quote-line-items-target="template">
+    <div class="row position-relative mb-2">
+        <div class="col-4">
+            <%= f.text_field :description,  class: "form-control" %>
+        </div>
+        <div class="col">
+            <%= f.text_field :currency, class: "form-control" %>
+        </div>
+        <div class="col">
+            <%= f.number_field :cost, class: "form-control" %>
+        </div>
+        <div class="col">
+            <%= f.text_field :frequency, class: "form-control" %>
+        </div>
+        <div class="col">
+            <%= f.number_field :quantity, class: "form-control" %>
+        </div>
+        <div class="col-2">
+            <%= f.number_field :total, class: "form-control-plaintext text-center", readonly: true %>
+        </div>
+        
+        <div class="d-none">
+            <%= link_to "#", class: "text-reset", data: { action: "quote-line-items#remove"} do %>
+            <i class="bi bi-trash position-absolute end-0 top-0 me-2 mt-1"></i>
+            <% end %>
+        </div>
+        
     </div>
 </div>

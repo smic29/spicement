@@ -119,6 +119,113 @@ end
 root "pages#index"
 ```
 
+### Nesting Forms & Using Stimulus to dynamically add or remove fields
+#### Nesting Part
+While creating a quotation form, I ran across an issue where the params I'm expecting to receive weren't complete. Specifically, my `Quote_Line_Item` which belongs to a `Quotation` would require several of the same fields since some charges have different descriptions and prices.
+
+What I found to do this was to add a `fields_for` in my new quotation form:
+```ruby
+<%= f.fields_for :quote_line_items do |item| %>
+  <%= render 'users/quotations/new_quotelineitem', f: item %>
+<% end %>
+```
+
+While this was able to nest `quote_line_item`'s attributes, adding another of the same code was not enough. What I needed was an array of `quote_line_items` in the params so that I can work on it on the create action.
+
+To do this, I found that I needed to add lines in my model and controller:
+```ruby
+# quotation.rb
+class Quotation < ApplicationRecord
+  has_many :quote_line_items
+
+  accepts_nested_attributes_for :quote_line_items
+end
+
+# quotations_controller.rb
+class Users::QuotationsController < ApplicationController
+  before_action :authenticate_user!
+
+  def new
+    @quotation = current_user.quotations.new
+    @quotation.quote_line_items.build
+  end
+
+  private
+
+  def quotation_params
+    params.require(:quotation).permit(
+      :status, :exchange_rate, :origin, :destination, :incoterm, client: [:name, :address],
+      quote_line_items_attributes: [:description, :currency, :cost, :frequency, :quantity, :total]
+    )
+  end
+end
+```
+The underlying reasons why this needs to be done is still quite hazy at this point, but I think I needed to add `accepts_nested_attributes_for` in my model so that a form would allow for multiple `fields_for` for `quote_line_items` since the association to it is `has_many`
+
+As for the quotation params, adding a `_attributes` to `quote_line_items`, I'm still very confused by it. My understanding of it (as of writing this) is that rails uses it to distinguish between the normal attributes of a model and the nested attribute. Basically instead of it calling `quotation.description`, it knows that it's supposed to be `quotation.quote_line_items.description`. 
+
+This whole process I think is usually for when you just want to create using one model without using `transactions`. So that rails will do `Quotation.create(status: something, quote_line_items: { description: something })` instead of the usual way of `Quotation.create(status: something)` then `Quote_Line_Item.create(description: something, quotation_id: that_first_one)`
+
+#### Stimulus Part
+Once I had the nesting part figured out, the next problem to solve was looking for the best way to add another `quote_line_item` field. I didn't want to have a set number of `quote_line_items` to just render on the screen. Users would find that annoying as well should they need more.
+
+At first, I thought of using turbo streams but ultimately decided that maybe getting more used to stimulus would be nicer. Thus here's what the stimulus controller looks like:
+```js
+export default class extends Controller {
+  static targets = ["container", "template"]
+
+  initialize() {
+    this.indexValue = 1
+  }
+
+  add(e) {
+    e.preventDefault()
+    
+    const newIndex = this.indexValue++
+    const content = this.templateTarget.innerHTML
+    .replace(/name="quotation\[quote_line_items_attributes\]\[\d+\]\[/g, `name="quotation[quote_line_items_attributes][${newIndex}][`)
+    .replace(/id="quotation_quote_line_items_attributes_\d+_/g, `id="quotation_quote_line_items_attributes_${newIndex}_`)
+    .replace("d-none","")
+
+    this.containerTarget.insertAdjacentHTML('beforeend', content)
+  }
+
+  remove(e) {
+    e.preventDefault()
+    const lineItemEl = e.target.closest('.row')
+    const lineItemIndex = this.getIndexFromEl(lineItemEl)
+
+    if (lineItemIndex !== null) {
+      lineItemEl.remove()
+      this.indexValue--
+      this.updateIndices(lineItemIndex)
+    }
+  }
+
+  getIndexFromEl(el) {
+    const idPattern = /quote_line_items_attributes_(\d+)_/
+    const match = el.querySelector('[id]')?.id.match(idPattern)
+    return match ? parseInt(match[1], 10) : null
+  }
+
+  updateIndices(startIndex) {
+    const lineItemElements = this.containerTarget.querySelectorAll('.row')
+
+    lineItemElements.forEach((element, index) => {
+      if (index >= startIndex) {
+        const newIndex = index 
+        const namePattern = /name="quotation\[quote_line_items_attributes\]\[\d+\]\[/g
+        const idPattern = /id="quotation_quote_line_items_attributes_\d+_/g
+
+        element.innerHTML = element.innerHTML
+        .replace(namePattern, `name="quotation[quote_line_items_attributes][${newIndex}][`)
+        .replace(idPattern, `id="quotation_quote_line_items_attributes_${newIndex}_`)
+      }
+    })
+  }
+```
+In hindsight, this looks like a pretty hacky way of doing it. But I get to learn more javascript, I guess. Maybe I'll also try another branch to test if turbo streams would've been quicker since I can just use the `@quotation.quote_line_items.build` variable in my new controller to pass on to the partial.
+
 ## Issues Encountered
 ### Popper not working properly with importmaps
 While trying to implement navbar with dropdowns, I noticed that they were not functioning properly. Checking on the console, it looks like `@popperjs/core` wasn't being loaded properly.

@@ -49,15 +49,20 @@
         </div>
 
         <div class="row font-robo">
-            <div class="col-12 border rounded p-3">
+            <div class="col-12 border rounded p-3" data-controller="quote-line-items">
                 <%= field_title "Charges" %>
                 <div class="row mb-1">
                     <%= headers_for Description: 4, Currency: 0, Cost: 0, Frequency: 0, Quantity: 0, Total: 2 %>
                 </div>
-                <%= f.fields_for :quotelineitems do |item| %>
-                <%= render 'users/quotations/new_quotelineitem', f: item %>
-                <% end %>
+                
+                <div data-quote-line-items-target="container">
+                    <%= f.fields_for :quote_line_items do |item| %>
+                    <%= render 'users/quotations/new_quotelineitem', f: item %>
+                    <% end %>
+                </div>
+            <%= link_to 'Add', '#', data: { action: "quote-line-items#add" } %>
             </div>
+
         </div>
 
         <div class="position-absolute top-0 end-0">
