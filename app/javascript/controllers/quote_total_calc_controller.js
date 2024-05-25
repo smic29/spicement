@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="quote-total-calc"
 export default class extends Controller {
-  static targets = ["total", "currency", "factor"]
+  static targets = ["total", "currency", "cost", "quantity"]
 
   initialize() {
     const exchangeRateEl = document.querySelector('#quotation_exchange_rate')
@@ -15,14 +15,10 @@ export default class extends Controller {
   }
 
   updateTotal(){
-    let result = 0
-    this.factorTargets.forEach((factor) => {
-      if (result === 0) {
-        result = result + parseFloat(factor.value) || 0
-      } else {
-        result = result * parseFloat(factor.value) || 0
-      }
-    })
+    const cost = parseFloat(this.costTarget.value) || 0
+    const quantity = parseFloat(this.quantityTarget.value) || 0
+
+    let result = cost * quantity
 
     if (this.currencyTarget.value !== 'PHP') {
       result = result * this.exchangeRate
