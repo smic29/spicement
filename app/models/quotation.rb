@@ -6,9 +6,21 @@ class Quotation < ApplicationRecord
 
   accepts_nested_attributes_for :quote_line_items
 
+  before_create :generate_unique_reference
+
   validates :user_id, presence: true
   validates :client_id, presence: true
   validates :status, inclusion: { in: %w(draft approved rejected) }
   validates :total_price, numericality: true
+  validates :reference, presence: true, uniqueness: true
+
+  private
+
+  def generate_unique_reference
+    self.reference ||= loop do
+      random_token = "Q-#{SecureRandom.hex(4)}"
+      break random_token unless self.class.exists?(reference: random_token)
+    end
+  end
 
 end
