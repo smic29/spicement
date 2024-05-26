@@ -20,6 +20,8 @@
                         ['Approved', 'approved'],
                         ['Rejected', 'rejected']
                     ]), {}, class: "form-select" %>
+                    <span class="input-group-text">Ref</span>
+                    <%= f.text_field :reference, class: "form-control", readonly: true, disabled: true %>
                 </div>
 
                 <div class="input-group mb-2">

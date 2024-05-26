@@ -8,15 +8,15 @@ class Users::Quotation::Create
 
     process_quote_line_items(params)
 
-    test_result = @user.quotations.new(params)
+    quotation = @user.quotations.new(params)
 
-    puts test_result.errors.full_messages.empty?
+    return quotation
   end
 
   private
 
   def process_client(params)
-    client_params = params[:client]
+    client_params = params[:client_attributes]
     client_params[:name].downcase!
     client_params[:address].downcase!
 
@@ -24,9 +24,12 @@ class Users::Quotation::Create
 
     if client.nil?
       client = @user.clients.create(client_params)
+      params.delete(:client_attributes)
+
+      params[:client_id] = client.id
     end
 
-    params.delete(:client)
+    params.delete(:client_attributes)
     params[:client_id] = client.id
   end
 

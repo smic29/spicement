@@ -2,6 +2,14 @@ class Users::QuotationsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_quotation_service, only: [ :create ]
 
+  def index
+    @quotations = current_user.quotations.all
+  end
+
+  def show
+    @quotation = current_user.quotations.find(params[:id])
+  end
+
   def new
     @quotation = current_user.quotations.new
     @quotation.quote_line_items.build
@@ -12,9 +20,10 @@ class Users::QuotationsController < ApplicationController
     @quotation = @service.create_quotation(quotation_params)
 
     if @quotation.save
-      render :new
+      render :index
     else
       render :new
+      puts @quotation.errors.full_messages
     end
   end
 
@@ -22,7 +31,7 @@ class Users::QuotationsController < ApplicationController
 
   def quotation_params
     params.require(:quotation).permit(
-      :status, :exchange_rate, :origin, :destination, :reference, :incoterm, client: [:name, :address],
+      :status, :exchange_rate, :origin, :destination, :incoterm, client_attributes: [:name, :address],
       quote_line_items_attributes: [:description, :currency, :cost, :frequency, :quantity, :total]
     )
   end
