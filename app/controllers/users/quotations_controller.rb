@@ -1,5 +1,6 @@
 class Users::QuotationsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_quotation_service, only: [ :create ]
 
   def new
     @quotation = current_user.quotations.new
@@ -7,7 +8,7 @@ class Users::QuotationsController < ApplicationController
   end
 
   def create
-    puts quotation_params
+    @service.create_quotation(quotation_params)
   end
 
   private
@@ -17,5 +18,9 @@ class Users::QuotationsController < ApplicationController
       :status, :exchange_rate, :origin, :destination, :incoterm, client: [:name, :address],
       quote_line_items_attributes: [:description, :currency, :cost, :frequency, :quantity, :total]
     )
+  end
+
+  def set_quotation_service
+    @service = Users::Quotation::Create.new(current_user)
   end
 end
