@@ -1,10 +1,10 @@
 class Quotation < ApplicationRecord
   belongs_to :user
-  has_one :client
+  belongs_to :client
   has_many :quote_line_items
   has_many :billings
 
-  accepts_nested_attributes_for :quote_line_items
+  accepts_nested_attributes_for :quote_line_items, :client
 
   before_create :generate_unique_reference
 
@@ -19,7 +19,7 @@ class Quotation < ApplicationRecord
   def generate_unique_reference
     self.reference ||= loop do
       random_token = "Q-#{SecureRandom.hex(4)}"
-      break random_token unless self.class.exists?(reference: random_token)
+      break random_token unless self.class.exists?(reference: random_token.upcase)
     end
   end
 
