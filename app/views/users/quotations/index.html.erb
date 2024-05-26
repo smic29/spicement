@@ -1,0 +1,11 @@
+<%= turbo_frame_tag "users_frame" do %>
+<div class="font-robo">
+    <h3>User Quotations</h3>
+    <% @quotations.each do |quote| %>
+        <div>
+            <%= quote.reference %>
+            <%= link_to 'Show', users_quotation_path(quote) %>
+        </div>
+    <% end %>
+</div>
+<% end %>

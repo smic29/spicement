@@ -1,0 +1,9 @@
+<%= turbo_frame_tag "users_frame" do %>
+<div class="font-robo">
+    <h1>Quotation <%= @quotation.reference %></h1>
+    <div>
+        For <%= @quotation.client.name %>
+        Status <%= @quotation.status %>
+    </div>
+</div>
+<% end %>
