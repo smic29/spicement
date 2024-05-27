@@ -4,6 +4,11 @@ class Users::Quotation::Create
   end
 
   def create_quotation(params)
+    # This will use the client_attributes params to check if the current user already has the name of the client.
+    # Then it should delete the client_attribute params to prevent it from being saved when the params are back in
+    # the controller.
+    # It will instead created a new param client_id for the quotation_params.
+    # This is done this way since I haven't figured out how to attach the current_user ID while building client_attributes
     process_client(params)
 
     process_quote_line_items(params)
