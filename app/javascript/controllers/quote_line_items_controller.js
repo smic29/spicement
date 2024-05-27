@@ -5,7 +5,7 @@ export default class extends Controller {
   static targets = ["container", "template"]
 
   initialize() {
-    this.indexValue = 1
+    this.indexValue = this.templateTargets.length
   }
 
   add(e) {
@@ -16,6 +16,10 @@ export default class extends Controller {
     .replace(/name="quotation\[quote_line_items_attributes\]\[\d+\]\[/g, `name="quotation[quote_line_items_attributes][${newIndex}][`)
     .replace(/id="quotation_quote_line_items_attributes_\d+_/g, `id="quotation_quote_line_items_attributes_${newIndex}_`)
     .replace("d-none","")
+    .replace(/(<input[^>]* value=")[^"]*"/g, '$1"') 
+    
+
+    console.log(content)
 
     this.containerTarget.insertAdjacentHTML('beforeend', content)
   }
