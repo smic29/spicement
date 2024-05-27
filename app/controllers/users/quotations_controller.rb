@@ -1,13 +1,13 @@
 class Users::QuotationsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_quotation_service, only: [ :create ]
+  before_action :set_quotation, only: [ :show, :edit, :update ]
+  before_action :set_quotation_service, only: [ :create, :update ]
 
   def index
     @quotations = current_user.quotations.all.order(created_at: :desc)
   end
 
   def show
-    @quotation = current_user.quotations.find(params[:id])
   end
 
   def new
@@ -27,12 +27,31 @@ class Users::QuotationsController < ApplicationController
     end
   end
 
+  def edit
+
+  end
+
+  def update
+    update_params = @service.update_quotation(quotation_params)
+
+    if @quotation.update(update_params)
+      render :show
+    else
+      render :edit
+      puts @quotation.errors.full_messages
+    end
+  end
+
   private
+
+  def set_quotation
+    @quotation = current_user.quotations.find(params[:id])
+  end
 
   def quotation_params
     params.require(:quotation).permit(
-      :status, :exchange_rate, :origin, :destination, :incoterm, client_attributes: [:name, :address],
-      quote_line_items_attributes: [:description, :currency, :cost, :frequency, :quantity, :total]
+      :status, :exchange_rate, :origin, :destination, :incoterm, client_attributes: [:name, :address, :id],
+      quote_line_items_attributes: [:description, :currency, :cost, :frequency, :quantity, :total, :id]
     )
   end
 

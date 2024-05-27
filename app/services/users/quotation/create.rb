@@ -18,6 +18,14 @@ class Users::Quotation::Create
     return quotation
   end
 
+  def update_quotation(params)
+    # Since I can't use .new for when I'm updating, for updates I just went for processing the params and returning the params I went to update on the controller.
+    process_client(params)
+    process_quote_line_items(params)
+
+    params
+  end
+
   private
 
   def process_client(params)
