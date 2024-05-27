@@ -1,11 +1,38 @@
 <%= turbo_frame_tag "users_frame" do %>
 <div class="font-robo">
-    <h3>User Quotations</h3>
-    <% @quotations.each do |quote| %>
-        <div>
-            <%= quote.reference %>
-            <%= link_to 'Show', users_quotation_path(quote) %>
+    <div class="row mb-3">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center">
+                <h3 class="font-robos">
+                    [<%= current_user.full_name %>] Quotations
+                </h3>
+                <%= link_to 'New Quotation', new_users_quotation_path, class: "btn btn-outline-success" %>
+            </div>
         </div>
-    <% end %>
+    </div>
+    <div class="row">
+        <% @quotations.each do |quote| %>
+            <div class="col-4 mb-3">
+                <div class="p-3 rounded-3 shadow">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <div class="font-monspace small fw-light">
+                                <%= quote.reference.upcase %>
+                            </div>
+                            <div class="fw-bold">
+                                <%= quote.client.name %>
+                            </div>
+                            <div class="small fw-light text-secondary">
+                                <%= time_ago_in_words(quote.created_at) + ' ago' %>
+                            </div>
+                        </div>
+                        <%= link_to users_quotation_path(quote), class: "text-reset fs-4" do %>
+                        <i class="bi bi-box-arrow-right"></i>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+    </div>
 </div>
 <% end %>

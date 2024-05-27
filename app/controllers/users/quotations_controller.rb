@@ -3,7 +3,7 @@ class Users::QuotationsController < ApplicationController
   before_action :set_quotation_service, only: [ :create ]
 
   def index
-    @quotations = current_user.quotations.all
+    @quotations = current_user.quotations.all.order(created_at: :desc)
   end
 
   def show
