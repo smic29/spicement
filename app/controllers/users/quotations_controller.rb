@@ -20,7 +20,7 @@ class Users::QuotationsController < ApplicationController
     @quotation = @service.create_quotation(quotation_params)
 
     if @quotation.save
-      render :index
+      render :show
     else
       render :new
       puts @quotation.errors.full_messages

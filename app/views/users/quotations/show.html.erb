@@ -1,9 +1,111 @@
 <%= turbo_frame_tag "users_frame" do %>
 <div class="font-robo">
-    <h1>Quotation <%= @quotation.reference %></h1>
-    <div>
-        For <%= @quotation.client.name %>
-        Status <%= @quotation.status %>
+    <div class="row mb-1">
+        <div class="col-12 d-flex justify-content-between align-items-center">
+            <h3 class="font-robos">Quotation Reference: <%= @quotation.reference %></h3>
+            <%= link_to 'Edit', '#', class: 'btn btn-outline-warning' %>
+        </div>
     </div>
+
+    <div class="row justify-content-between mb-3">
+        <div class="col-6">
+            <div class="border rounded shadow p-2">
+                <h6 class="font-robos lead">
+                    Client
+                </h6>
+                <div class="ps-2">
+                    <div>
+                        <%= @quotation.client.name.titleize %>
+                    </div>
+                    <div>
+                        <%= @quotation.client.address.titleize %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="border rounded shadow p-2">
+                <h6 class="font-robos lead">
+                    Details
+                </h6>
+                <div class="ps-2">
+                    <div>
+                        <span>Status:</span>
+                        <span>
+                            <%= @quotation.status.capitalize %>
+                        </span>
+                    </div>
+                    <div>
+                        Exchange Rate: <%= number_to_currency_php @quotation.exchange_rate %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-12">
+            <div class="border rounded shadow p-2">
+                <h6 class="font-robos lead">
+                    Shipment Details
+                </h6>
+
+                <div class="ps-2">
+                    <div class="row">
+                        <div class="col-6">
+                            Origin: <%= @quotation.origin %>
+                        </div>
+                        <div class="col-6">
+                            Destination: <%= @quotation.destination %>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            Incoterm: <%= @quotation.incoterm %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="p-2 border rounded shadow">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Currency</th>
+                            <th class="text-center">Cost</th>
+                            <th>Frequency</th>
+                            <th class="text-center">Quantity</th>
+                            <th class="text-center">Total</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        <% @quotation.quote_line_items.each do |item| %>
+                        <tr>
+                            <td><%= item.description %></td>
+                            <td class="text-center"><%= item.currency %></td>
+                            <td class="text-center"><%= item.currency == 'PHP' ? number_to_currency_php(item.cost) : number_to_currency(item.cost) %></td>
+                            <td class="text-center"><%= item.frequency %></td>
+                            <td class="text-center"><%= item.quantity %></td>
+                            <td class="text-end"><%= number_to_currency_php item.total %></td>
+                        </tr>
+                        <% end %>
+                    </tbody>
+                    <tfoot class="table-group-divider">
+                        <tr>
+                            <th colspan="5">Total</th>
+                            <th><%= number_to_currency_php @quotation.total_price %></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>    
+
 </div>
 <% end %>
