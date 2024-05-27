@@ -1,0 +1,67 @@
+
+    <div class="container-fluid">
+        <div class="row font-robo mb-3">
+            <%= f.fields_for :client do |item| %>
+            <%= render "users/quotations/new_client", f: item %>
+            <% end %>
+
+            <div class="col border rounded p-3">
+                <%= field_title "Details" %>
+                <div class="input-group mb-2">
+                    <span class="input-group-text">Status</span>
+                    <%= f.select :status, options_for_select([
+                        ['Draft', 'draft'],
+                        ['Approved', 'approved'],
+                        ['Rejected', 'rejected']
+                    ]), {}, class: "form-select" %>
+                    <span class="input-group-text">Ref</span>
+                    <%= f.text_field :reference, class: "form-control", readonly: true, disabled: true %>
+                </div>
+
+                <div class="input-group mb-2">
+                    <span class="input-group-text">Exchange Rate</span>
+                    <%= f.number_field :exchange_rate, class: "form-control text-center", step: "0.01" %>
+                    <span class="input-group-text">PHP</span>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row font-robo mb-3">
+            <div class="col-12 border rounded p-3">
+                <%= field_title "Shipment" %>
+                <div class="input-group mb-2">
+                    <span class="input-group-text">Origin</span>
+                    <%= f.text_field :origin, class: "form-control" %>
+                    <span class="input-group-text">Destination</span>
+                    <%= f.text_field :destination, class: "form-control" %>
+                </div>
+
+                 <div class="input-group mb-2">
+                    <span class="input-group-text">Incoterm</span>
+                    <%= f.text_field :incoterm, class: "form-control" %>
+                </div>
+            </div>
+        </div>
+
+        <div class="row font-robo">
+            <div class="col-12 border rounded p-3" data-controller="quote-line-items">
+                <%= field_title "Charges" %>
+                <div class="row mb-1">
+                    <%= headers_for Description: 4, Currency: 0, Cost: 0, Frequency: 0, Quantity: 0, Total: 2 %>
+                </div>
+                
+                <div data-quote-line-items-target="container">
+                    <%= f.fields_for :quote_line_items do |item| %>
+                    <%= render 'users/quotations/new_quotelineitem', f: item %>
+                    <% end %>
+                </div>
+            <%= link_to 'Add', '#', data: { action: "quote-line-items#add" } %>
+            </div>
+
+        </div>
+
+        <div class="position-absolute top-0 end-0">
+            <%= f.submit "Save", class: "btn btn-success me-4 mt-3" %>
+        </div>
+    </div>

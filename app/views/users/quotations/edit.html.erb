@@ -1,0 +1,11 @@
+<%= turbo_frame_tag "users_frame" do %>
+<div class="border shadow-lg p-4 rounded position-relative">
+    <div class="font-robo">
+        <h3 class="font-robos">Edit</h3>
+    </div>
+
+    <%= form_with model: @quotation, url: users_quotation_path(@quotation) do |f| %>
+    <%= render 'users/quotations/form', f: f %>
+    <% end %>
+</div>
+<% end %>
