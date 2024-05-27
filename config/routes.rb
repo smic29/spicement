@@ -27,7 +27,7 @@ Rails.application.routes.draw do
       end
       patch "profile" => "profile#update"
 
-      resources :quotations, only: [ :index, :show, :new, :create ]
+      resources :quotations, only: [ :index, :show, :new, :create, :edit, :update ]
     end
   end
 
