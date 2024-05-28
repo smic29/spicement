@@ -18,15 +18,46 @@ class Users::Quotation::Create
     return quotation
   end
 
-  def update_quotation(params)
+  def update_quotation(params, quotation)
     # Since I can't use .new for when I'm updating, for updates I just went for processing the params and returning the params I went to update on the controller.
-    process_client(params)
-    process_quote_line_items(params)
+    Quotation.transaction do
+      process_client(params)
+      process_quote_line_items(params)
 
-    params
+      process_deleted_lines(params, quotation)
+
+      quotation.update(params)
+    end
+
+    true
   end
 
   private
+
+  def process_deleted_lines(params, quotation)
+    qli_params = params[:quote_line_items_attributes]
+    qli_index = qli_params.keys.length
+    id_array = []
+    existing_qlis = quotation.quote_line_items
+
+    existing_qlis.each do |qli|
+      id_array << qli.id
+    end
+
+    qli_params.each do |k,v|
+      next if v[:id].nil?
+      id = v[:id].to_i
+
+      id_array.delete(id) if id_array.include? id
+    end
+
+    id_array.each do |id|
+      params[:quote_line_items_attributes][qli_index.to_s] = { id: id, _destroy: 1}
+      qli_index += 1
+    end unless id_array.empty?
+
+    params
+  end
 
   def process_client(params)
     client_params = params[:client_attributes]

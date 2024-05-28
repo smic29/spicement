@@ -32,13 +32,10 @@ class Users::QuotationsController < ApplicationController
   end
 
   def update
-    update_params = @service.update_quotation(quotation_params)
-
-    if @quotation.update(update_params)
+    if @service.update_quotation(quotation_params, @quotation)
       render :show
     else
       render :edit
-      puts @quotation.errors.full_messages
     end
   end
 

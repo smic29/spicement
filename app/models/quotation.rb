@@ -4,7 +4,8 @@ class Quotation < ApplicationRecord
   has_many :quote_line_items
   has_many :billings
 
-  accepts_nested_attributes_for :quote_line_items, :client
+  accepts_nested_attributes_for :quote_line_items, allow_destroy: true
+  accepts_nested_attributes_for :client
 
   before_create :generate_unique_reference
 
