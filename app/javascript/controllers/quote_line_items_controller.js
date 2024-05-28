@@ -37,12 +37,12 @@ export default class extends Controller {
 
     if (lineItemIndex !== null) {
       lineItemEl.remove()
-      this.indexValue--
-      this.updateIndices(lineItemIndex)
-
+      
       if (hiddenIdEl && hiddenIdEl.tagName === 'INPUT'){
         hiddenIdEl.remove()
       }
+      this.indexValue--
+      this.updateIndices(lineItemIndex)
     }
   }
 
@@ -64,6 +64,12 @@ export default class extends Controller {
         element.innerHTML = element.innerHTML
         .replace(namePattern, `name="quotation[quote_line_items_attributes][${newIndex}][`)
         .replace(idPattern, `id="quotation_quote_line_items_attributes_${newIndex}_`)
+
+        const nextElement = element.nextElementSibling
+        if (nextElement && nextElement.tagName === 'INPUT') {
+            nextElement.name = `quotation[quote_line_items_attributes][${newIndex}][id]`
+            nextElement.id = `quotation_quote_line_items_attributes_${newIndex}_id`
+        }
       }
     })
   }
