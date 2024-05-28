@@ -23,7 +23,6 @@ class Users::QuotationsController < ApplicationController
       render :show
     else
       render :new
-      puts @quotation.errors.full_messages
     end
   end
 
