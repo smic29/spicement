@@ -3,9 +3,6 @@
     <div class="font-robos">
         <h3>Quotation</h3>
     </div>
-    <%= form_with model: @quotation, scope: :quotation, url: users_quotations_path do |f| %>
-    <%= render 'users/quotations/form', f: f %>
-    <% end %>
-
+    <%= render 'users/quotations/form', path: users_quotations_path %>
 </div>
 <% end %>

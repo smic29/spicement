@@ -6,6 +6,12 @@ export default class extends Controller {
 
   initialize() {
     this.indexValue = this.templateTargets.length
+
+    this.templateTargets.forEach((template) => {
+      if (template.querySelector('input').value !== "") {
+        template.querySelector('.d-none').classList.remove('d-none')
+      }
+    })
   }
 
   add(e) {
@@ -17,22 +23,26 @@ export default class extends Controller {
     .replace(/id="quotation_quote_line_items_attributes_\d+_/g, `id="quotation_quote_line_items_attributes_${newIndex}_`)
     .replace("d-none","")
     .replace(/(<input[^>]* value=")[^"]*"/g, '$1"') 
-    
 
-    console.log(content)
+    const wrappedContent =`<div data-quote-line-items-target="template" class="qli-template">${content}</div>`
 
-    this.containerTarget.insertAdjacentHTML('beforeend', content)
+    this.containerTarget.insertAdjacentHTML('beforeend', wrappedContent)
   }
 
   remove(e) {
     e.preventDefault()
-    const lineItemEl = e.target.closest('.row')
+    const lineItemEl = e.target.closest('.qli-template')
     const lineItemIndex = this.getIndexFromEl(lineItemEl)
+    const hiddenIdEl = lineItemEl.nextElementSibling
 
     if (lineItemIndex !== null) {
       lineItemEl.remove()
       this.indexValue--
       this.updateIndices(lineItemIndex)
+
+      if (hiddenIdEl && hiddenIdEl.tagName === 'INPUT'){
+        hiddenIdEl.remove()
+      }
     }
   }
 
@@ -43,7 +53,7 @@ export default class extends Controller {
   }
 
   updateIndices(startIndex) {
-    const lineItemElements = this.containerTarget.querySelectorAll('.row')
+    const lineItemElements = this.containerTarget.querySelectorAll('.qli-template')
 
     lineItemElements.forEach((element, index) => {
       if (index >= startIndex) {

@@ -1,4 +1,4 @@
-
+<%= form_with model: @quotation, scope: :quotation, url: path do |f| %>
     <div class="container-fluid">
         <div class="row font-robo mb-3">
             <%= f.fields_for :client do |item| %>
@@ -65,3 +65,4 @@
             <%= f.submit "Save", class: "btn btn-success me-4 mt-3" %>
         </div>
     </div>
+<% end %>
