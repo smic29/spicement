@@ -27,7 +27,11 @@ Rails.application.routes.draw do
       end
       patch "profile" => "profile#update"
 
-      resources :quotations, only: [ :index, :show, :new, :create, :edit, :update ]
+      resources :quotations, only: [ :index, :show, :new, :create, :edit, :update ] do
+        member do
+          get 'pdf' => "quotations#pdf"
+        end
+      end
     end
   end
 

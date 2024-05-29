@@ -38,6 +38,21 @@ class Users::QuotationsController < ApplicationController
     end
   end
 
+  def pdf
+    set_quotation
+    pdf_html = render_to_string(
+      template: 'users/quotations/pdf',
+      layout: 'pdf',
+      page_size: 'A4',
+      margin: { top: 10, bottom: 10, left: 10, right: 10 },
+      disable_smart_shrinking: true,
+      print_media_type: true,
+      no_pdf_compression: true
+    )
+    pdf = WickedPdf.new.pdf_from_string(pdf_html)
+    send_data pdf, filename: "file.pdf", type: 'application/pdf', disposition: 'inline'
+  end
+
   private
 
   def set_quotation
