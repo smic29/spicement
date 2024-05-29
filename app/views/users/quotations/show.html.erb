@@ -24,7 +24,7 @@
                     <% end %>
                 </div>
                 <div class="col-6">
-                    <%= link_to 'Print', pdf_users_quotation_path(@quotation), class: "btn btn-outline-info", data: { turbo_frame: :_top } %>
+                    <%= link_to 'Print', pdf_users_quotation_path(@quotation), class: "btn btn-outline-info", target: :_blank, data: { turbo_frame: :_top } %>
                 </div>
             </div>
         </div>
