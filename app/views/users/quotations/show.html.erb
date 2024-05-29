@@ -10,6 +10,26 @@
         </div>
     </div>
 
+    <div class="position-absolute end-0 me-5">
+        <div class="border rounded shadow p-2">
+            <div class="font-robos border-bottom p-1">
+                Actions
+            </div>
+            <div class="row mt-2">
+                <div class="col-6">
+                    <% if @quotation.status != 'approved' %>
+                    <%= link_to 'Book', '#', class: "btn btn-outline-secondary disabled" %>
+                    <% else %>
+                    <%= link_to 'Book', '#', class: "btn btn-outline-success" %>
+                    <% end %>
+                </div>
+                <div class="col-6">
+                    <%= link_to 'Print', '#', class: "btn btn-outline-info" %>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row justify-content-between mb-3">
         <div class="col-6">
             <div class="border rounded shadow p-2">
