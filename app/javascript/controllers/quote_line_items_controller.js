@@ -6,6 +6,7 @@ export default class extends Controller {
 
   initialize() {
     this.indexValue = this.templateTargets.length
+    const exrate_input = document.querySelector('#quotation_exchange_rate')
 
     this.templateTargets.forEach((template) => {
       if (template.querySelector('input').value !== "") {
@@ -15,6 +16,10 @@ export default class extends Controller {
     })
 
     this.element.addEventListener("change", (e) => {
+      this.updateSumTotal()
+    })
+
+    exrate_input.addEventListener("change", () => {
       this.updateSumTotal()
     })
   }
