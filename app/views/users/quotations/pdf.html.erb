@@ -1,0 +1,95 @@
+<h1 class="font-robos">
+    <%= current_user.company.name %> Quotation
+</h1>
+
+
+<div style="display: -webkit-box; -webkit-box-pack: justify;">
+    <div class="mt-3 font-robo p-3" style="border: 1px solid black; min-width: 300px">
+        <h3>Quote For</h3>
+        <div class="ps-2">
+            <p class="mb-0 fw-semi-bold"><%= @quotation.client.name.titleize %></p>
+            <p><%= @quotation.client.address.titleize %></p>
+        </div>
+    </div>
+    <div class="mt-3 font-robo p-3" style="border: 1px solid black; min-width: 300px">
+        <h3>Details</h3>
+        <div class="ps-2">
+            <div>
+                Date: <%= @quotation.created_at.strftime("%m/%d/%y") %>
+            </div>
+            <div>
+                Reference: <%= @quotation.reference.upcase %>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-3 font-robo p-3" style="border: 1px solid black">
+    <h3>Shipment Details</h3>
+    <div class="ps-2">
+        <div style="display: -webkit-box;">
+            <div>
+                <span>
+                    Origin :
+                </span>
+                <%= @quotation.origin %>
+            </div>
+            <div class="ms-3">
+                <span>
+                    Destination :
+                </span>
+                <%= @quotation.destination %>
+            </div>
+        </div>
+        <div>
+            <span>
+                INCOTERM :
+            </span>
+            <%= @quotation.incoterm %>
+        </div>
+    </div>
+</div>
+
+<div class="mt-5">
+    <h3>Charges</h3>
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Currency</th>
+                    <th>Cost</th>
+                    <th>Frequency</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @quotation.quote_line_items.each do |item| %>
+                <tr>
+                    <td><%= item.description %></td>
+                    <td class="text-center"><%= item.currency %></td>
+                    <td><%= item.currency == 'PHP' ? number_to_currency_php(item.cost) : number_to_currency(item.cost) %></td>
+                    <td class="text-center"><%= item.frequency %></td>
+                    <td class="text-center"><%= item.quantity %></td>
+                    <td class="text-end"><%= number_to_currency_php item.total %></td>
+                </tr>
+                <% end %>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="5">Total</th>
+                    <th><%= number_to_currency_php @quotation.total_price %></th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<div class="mt-5 p-3" style="border: 2px dotted black">
+    <div>
+        <small>
+            Prepared by: <%= current_user.full_name %>
+        </small>
+    </div>
+</div>
