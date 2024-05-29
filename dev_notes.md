@@ -226,6 +226,8 @@ export default class extends Controller {
 ```
 In hindsight, this looks like a pretty hacky way of doing it. But I get to learn more javascript, I guess. Maybe I'll also try another branch to test if turbo streams would've been quicker since I can just use the `@quotation.quote_line_items.build` variable in my new controller to pass on to the partial.
 
+After completing this part of the feature, I'm still considering looking into the use of turbo streams and not stimulus. This is because I spent a considerable amount of time tinkering with the stimulus controllers just to make sure they worked properly and would pass the correct params. There's also an issue with `updateIndices` that would not save the values currently on the given row and thus the last few commits were focused on making sure the stimulus controller was showing, and retaining, the correct values on field removal and/or updates.
+
 ## Issues Encountered
 ### Popper not working properly with importmaps
 While trying to implement navbar with dropdowns, I noticed that they were not functioning properly. Checking on the console, it looks like `@popperjs/core` wasn't being loaded properly.
