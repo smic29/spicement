@@ -13,7 +13,7 @@
                         ['Draft', 'draft'],
                         ['Approved', 'approved'],
                         ['Rejected', 'rejected']
-                    ]), {}, class: "form-select" %>
+                    ], f.object.status), {}, class: "form-select" %>
                     <span class="input-group-text">Ref</span>
                     <%= f.text_field :reference, class: "form-control", readonly: true, disabled: true %>
                 </div>
@@ -56,7 +56,16 @@
                     <%= render 'users/quotations/new_quotelineitem', f: item %>
                     <% end %>
                 </div>
-            <%= link_to 'Add', '#', data: { action: "quote-line-items#add" } %>
+                
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <%= link_to 'Add', '#', data: { action: "quote-line-items#add" }, class: "btn btn-outline-info" %>
+                    </div>
+                    <div>
+                        <span class="fw-semibold me-2">Total</span>
+                        <span class="mx-5" data-quote-line-items-target="sumtotal">-</span>
+                    </div>
+                </div>
             </div>
 
         </div>
