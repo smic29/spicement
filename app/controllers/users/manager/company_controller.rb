@@ -29,6 +29,6 @@ class Users::Manager::CompanyController < ApplicationController
   end
 
   def company_params
-    params.require(:company).permit(:logo, :name)
+    params.require(:company).permit(:logo, :name, :address, :contact_number)
   end
 end

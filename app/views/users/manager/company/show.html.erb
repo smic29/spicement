@@ -14,8 +14,25 @@
             </div>
         </div>
 
-        <div class="fw-light text-center mb-3">
-            <span class="fw-semibold">Company Email: </span><%= @company.email %>
+        <div class="fw-light mb-3 d-flex flex-column">
+            <div class="mb-1">
+                <span class="fw-semibold">Company Email: </span>
+                <div class="ps-2">
+                    <%= @company.email %>
+                </div>
+            </div>
+            <div class="mb-1">
+                <span class="fw-semibold">Company Address: </span>
+                <div class="ps-2">
+                    <%= @company.address.nil? ? "None" : @company.address %>
+                </div>
+            </div>
+            <div class="mb-1">
+                <span class="fw-semibold">Company Number: </span>
+                <div class="ps-2">
+                    <%= @company.contact_number.nil? ? "None" : @company.contact_number %>
+                </div>
+            </div>
         </div>
 
         <div class="col-6">

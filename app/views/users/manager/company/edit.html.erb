@@ -8,17 +8,33 @@
         </div>
         <div class="row">
             <%= form_with model:@company, url: users_manager_company_path(@company) do |f| %>
-            <div class="col-12 mb-3">
+            <div class="mb-3">
                 <div class="form-floating">
                     <%= f.text_field :name, class: "form-control", placeholder: "Company Name" %>
                     <%= f.label :name, "Company Name" %>
                 </div>
             </div>
 
+            <div class="row mb-3">
+                <div class="col-6">
+                    <div class="form-floating">
+                        <%= f.text_field :email, class: "form-control", disabled: true, placeholder: "Email", readonly: true %>
+                        <%= f.label :email, "Company Email Address" %>
+                    </div>
+                </div>
+
+                <div class="col-6">
+                    <div class="form-floating">
+                        <%= f.text_field :contact_number, class: "form-control", placeholder: "Contact Number" %>
+                        <%= f.label :contact_number, "Contact Number" %>
+                    </div>
+                </div>
+            </div>
+
             <div class="col-12 mb-3">
                 <div class="form-floating">
-                    <%= f.text_field :email, class: "form-control", disabled: true, placeholder: "Email", readonly: true %>
-                    <%= f.label :email, "Company Email Address" %>
+                    <%= f.text_area :address, class: "form-control", placeholder: "Address" %>
+                    <%= f.label :address, "Address" %>
                 </div>
             </div>
 
