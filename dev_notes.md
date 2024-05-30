@@ -56,6 +56,14 @@ config.include Devise::Test::IntegrationHelpers, type: :request
   ```
 
 ## Processes Learned
+### Using wkdhtmltopdf To Generate PDFS
+#### Resource:
+- [Wicked PDF](https://github.com/mileszs/wicked_pdf?tab=readme-ov-file#wicked-pdf----)
+- [Using Flex with wicked_pdf](https://stackoverflow.com/questions/57020675/using-flex-css-with-wkhtmltopdf)
+- [Using Borders with wicked_pdf](https://stackoverflow.com/questions/65825023/print-page-borders-on-a-multi-page-output-using-wkhtmlltopdf)
+#### Installation:
+Besides adding the necessary gems in my `GemFile` as per the documentation. I also installed wickedpdf in my system. I am not sure if this was a necessary step. If problems arise in the future when this project is deployed, I'll need to document the steps I needed to do to allow for proper deployment.
+
 ### Scoping with devise
 Since I'm allowing user creation under unique companies, I needed to scope users under a company ID:
 ```ruby
