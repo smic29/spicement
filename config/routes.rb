@@ -32,6 +32,10 @@ Rails.application.routes.draw do
           get 'pdf' => "quotations#pdf"
         end
       end
+
+      namespace :manager do
+        resources :company, only: [ :show, :edit, :update ]
+      end
     end
   end
 

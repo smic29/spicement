@@ -5,10 +5,12 @@
 
         <div class="col-10 flex-grow-1">
             <div class="container h-100 w-100 d-flex align-items-center justify-content-center">
-                <%= turbo_frame_tag "users_frame", src: users_quotation_path(6) do %>
+                <%= turbo_frame_tag "users_frame", src: users_manager_company_path(current_user.company) do %>
                 default here is user_welcome_path
                 <% end %>
             </div>
         </div>
     </div>
 </div>
+
+<%# users_quotation_path(6) %>

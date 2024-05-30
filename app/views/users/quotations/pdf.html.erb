@@ -1,6 +1,17 @@
-<h1 class="font-robos">
-    <%= current_user.company.name %> Quotation
-</h1>
+<div style="display: -webkit-box;">
+    <% if current_user.company.logo.attached? %>
+    <div>
+        <%= image_tag polymorphic_url(current_user.company.logo), style: "height: 4rem; width: auto;"  %>
+    </div>
+    <% end %>
+    <h1 class="font-robos">
+        <%= current_user.company.name %>
+    </h1>
+</div>
+
+<div class="mt-3">
+    <h2>Quotation:</h2>
+</div>
 
 
 <div style="display: -webkit-box; -webkit-box-pack: justify;">

@@ -1,0 +1,42 @@
+<%= turbo_frame_tag "users_frame" do %>
+<div class="font-robo">
+    <div class="container shadow border rounded p-5">
+        <div class="row">
+            <h3 class="font-robos">
+                Edit Company Profile
+            </h3>
+        </div>
+        <div class="row">
+            <%= form_with model:@company, url: users_manager_company_path(@company) do |f| %>
+            <div class="col-12 mb-3">
+                <div class="form-floating">
+                    <%= f.text_field :name, class: "form-control", placeholder: "Company Name" %>
+                    <%= f.label :name, "Company Name" %>
+                </div>
+            </div>
+
+            <div class="col-12 mb-3">
+                <div class="form-floating">
+                    <%= f.text_field :email, class: "form-control", disabled: true, placeholder: "Email", readonly: true %>
+                    <%= f.label :email, "Company Email Address" %>
+                </div>
+            </div>
+
+            <div class="col-12 mb-3 d-flex flex-column align-items-center">
+                <% if @company.logo.attached? %>
+                <div class="mx-auto">
+                    <image src="<%= (url_for(@company.logo))%>" class="img-fluid img-thumbnail mb-1" style="height: 10rem; width: auto">
+                </div>
+                <% end %>
+                <%= f.file_field :logo, class: "form-control" %>
+            </div>
+
+            <div class="text-center">
+                <%= link_to 'Cancel', users_manager_company_path(@company), class: "btn btn-outline-secondary" %>
+                <%= f.submit "Save", class: "btn btn-outline-success" %>
+            </div>
+            <% end %>
+        </div>
+    </div>
+</div>
+<% end %>

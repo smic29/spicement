@@ -1,0 +1,30 @@
+<%= turbo_frame_tag "users_frame" do %>
+<div class="font-robo">
+    <div class="p-3 shadow border rounded">
+        <div class="row mb-3">
+            <div class="d-flex align-items-center">
+                <div>
+                    <% if @company.logo.attached? %>
+                    <image src="<%= (url_for(@company.logo))%>" class="image-fluid" style="height: 3rem; width:auto;">
+                    <% end %>
+                </div>
+                <div>
+                    <h3 class="font-robos m-0"><%= @company.name %></h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="fw-light text-center mb-3">
+            <span class="fw-semibold">Company Email: </span><%= @company.email %>
+        </div>
+
+        <div class="col-6">
+            
+        </div>
+
+        <div class="text-center">
+            <%= link_to 'Edit', edit_users_manager_company_path, class: "btn btn-outline-warning" %>
+        </div>
+    </div>
+</div>
+<% end %>

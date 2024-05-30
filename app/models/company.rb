@@ -6,6 +6,7 @@ class Company < ApplicationRecord
   has_many :quotations, through: :users
   has_many :bookings, through: :users
   has_many :billings, through: :users
+  has_one_attached :logo
 
   validate :approved_not_present_on_creation
   validates :name, presence: true, uniqueness: true
