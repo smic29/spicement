@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_30_114135) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_03_082136) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -71,6 +71,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_30_114135) do
     t.date "eta"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "b_reference"
     t.index ["forwarder_id"], name: "index_bookings_on_forwarder_id"
     t.index ["quotation_id"], name: "index_bookings_on_quotation_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
