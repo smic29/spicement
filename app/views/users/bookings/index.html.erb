@@ -1,0 +1,9 @@
+<%= turbo_frame_tag "users_frame" do %>
+<div class="border shadow rounded p-3">
+    <% unless current_user.bookings.empty? %>
+    You have bookings
+    <% else %>
+    You have no bookings yet
+    <% end %>
+</div>
+<% end %>

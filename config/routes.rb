@@ -33,6 +33,8 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :bookings, only: [ :index, :show, :update, :edit, :create ]
+
       namespace :manager do
         resources :company, only: [ :show, :edit, :update ]
       end
