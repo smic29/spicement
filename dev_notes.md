@@ -56,7 +56,7 @@ config.include Devise::Test::IntegrationHelpers, type: :request
   ```
 
 ## Processes Learned
-### Using wkdhtmltopdf To Generate PDFS
+### Using wkdhtmltopdf To Generate PDFs
 #### Resource:
 - [Wicked PDF](https://github.com/mileszs/wicked_pdf?tab=readme-ov-file#wicked-pdf----)
 - [Using Flex with wicked_pdf](https://stackoverflow.com/questions/57020675/using-flex-css-with-wkhtmltopdf)
