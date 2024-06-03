@@ -2,7 +2,11 @@ class Users::BookingsController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    @bookings = current_user.bookings.all
+  end
 
+  def show
+    @booking = current_user.bookings.find(params[:id])
   end
 
   def create
