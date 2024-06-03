@@ -4,4 +4,18 @@ class Users::BookingsController < ApplicationController
   def index
 
   end
+
+  def create
+    quotation = current_user.quotations.find(params[:quotation_id])
+    cost = 0
+    profit = quotation.total_price - cost
+    @booking = quotation.build_booking(user_id: quotation.user_id, receivable: quotation.total_price, cost: 0, profit: profit)
+
+    if @booking.save
+      render :show
+    else
+      puts @booking.errors.full_messages
+      render :index
+    end
+  end
 end

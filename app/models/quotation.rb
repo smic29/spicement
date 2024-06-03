@@ -3,6 +3,7 @@ class Quotation < ApplicationRecord
   belongs_to :client
   has_many :quote_line_items
   has_many :billings
+  has_one :booking
 
   accepts_nested_attributes_for :quote_line_items, allow_destroy: true
   accepts_nested_attributes_for :client

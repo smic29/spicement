@@ -20,7 +20,7 @@
                     <% if @quotation.status != 'approved' %>
                     <%= link_to 'Book', '#', class: "btn btn-outline-secondary disabled" %>
                     <% else %>
-                    <%= link_to 'Book', '#', class: "btn btn-outline-success" %>
+                    <%= button_to 'Book', users_bookings_path(quotation_id: @quotation.id), method: :post, class: "btn btn-outline-success" %>
                     <% end %>
                 </div>
                 <div class="col-6">
