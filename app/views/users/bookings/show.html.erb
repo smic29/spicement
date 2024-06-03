@@ -1,4 +1,118 @@
 <%= turbo_frame_tag "users_frame" do %>
-Hello! You are viewing: <br>
-<%= @booking.b_reference %>
+<h3 class="font-robos"><%= @booking.b_reference.upcase %></h3>
+<div class="container-fluid font-robo">
+    <div class="row mb-3">
+        <div class="col-6">
+            <div class="border shadow rounded p-3">
+                <h5 class="font-robos">Client</h5>
+                <div class="ps-2">
+                    <div>
+                        <%= @booking.quotation.client.name.titleize %>
+                    </div>
+                    <div>
+                        <%= @booking.quotation.client.address.titleize %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="border shadow rounded p-3">
+                <h5 class="font-robos">Details</h5>
+                <div class="ps-2">
+                    <div>
+                        Quotation: <%= @booking.quotation.reference.upcase %>
+                    </div>
+                    <div>
+                        Status: <%= @booking.status %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-12">
+            <div class="border shadow rounded p-3">
+                <h5 class="font-robos">Shipment Details</h5>
+                <div class="ps-2">
+                    <div class="row">
+                        <div class="col-6">
+                            Origin: <%= @booking.quotation.origin %>
+                        </div>
+                        <div class="col-6">
+                            Destination: <%= @booking.quotation.destination %>
+                        </div>
+                        <div class="col-6">
+                            BL #: <%= @booking.bl_number %>
+                        </div>
+                        <div class="col-6">
+                            ETA: <%= @booking.eta %>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            Incoterm: <%= @booking.quotation.incoterm %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-12">
+            <div class="border shadow rounded p-3">
+                <h5 class="font-robos">Financial Details</h5>
+                <div class="ps-2">
+                    <div class="row">
+                        <div class="col-12">
+                            Services: <%= @booking.services %>
+                        </div>
+                        <div class="col-6">
+                            Receivable: <%= number_to_currency_php @booking.receivable %>
+                        </div>
+                        <div class="col-6">
+                            Cost: <%= number_to_currency_php @booking.cost %>
+                        </div>
+                        <div class="col-6">
+                            Profit: <%= number_to_currency_php @booking.profit %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="border shadow rounded p-3">
+                <h5 class="font-robos">Charges</h5>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Currency</th>
+                            <th>Cost</th>
+                            <th>Frequency</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                        <% @booking.quotation.quote_line_items.each do |item| %>
+                        <tr>
+                            <td><%= item.description %></td>
+                            <td><%= item.currency %></td>
+                            <td><%= item.cost %></td>
+                            <td><%= item.frequency %></td>
+                            <td><%= item.quantity %></td>
+                            <td>PlaceHolderTotal</td>
+                        </tr>
+                        <% end %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 <% end %>
