@@ -34,6 +34,7 @@ Rails.application.routes.draw do
       end
 
       resources :bookings, only: [ :index, :show, :update, :edit, :create ]
+      resources :billings, only: [ :index, :show, :new, :create, :update, :edit ]
 
       namespace :manager do
         resources :company, only: [ :show, :edit, :update ]
