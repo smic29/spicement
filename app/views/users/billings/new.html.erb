@@ -1,0 +1,10 @@
+<%= turbo_frame_tag "users_frame" do %>
+
+<%= form_for @billing, url: users_billings_path do |f| %>
+    <%= f.hidden_field :quotation_id, value: @quote_id %>
+    <%= f.hidden_field :booking_id, value: @booking_id %>
+    
+    Hidden above this my boy
+<% end %>
+
+<% end %>

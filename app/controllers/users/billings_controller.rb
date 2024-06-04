@@ -10,7 +10,9 @@ class Users::BillingsController < ApplicationController
   end
 
   def new
-
+    @billing = current_user.bookings.new
+    @quote_id = params[:quotation_id]
+    @booking_id = params[:booking_id]
   end
 
   def create

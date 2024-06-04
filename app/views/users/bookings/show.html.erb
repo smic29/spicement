@@ -9,7 +9,7 @@
             <div class="row mt-2">
                 <div class="col-12">
                     <div class="text-center">
-                        <%= link_to 'Make Billing', '#', class: "btn btn-outline-secondary disabled" %>
+                        <%= link_to 'Make Billing', new_users_billing_path(quotation_id: @booking.quotation.id, booking_id: @booking.id), class: "btn btn-outline-secondary" %>
                     </div>
                 </div>
             </div>
