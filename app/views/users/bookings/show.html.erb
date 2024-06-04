@@ -1,6 +1,21 @@
 <%= turbo_frame_tag "users_frame" do %>
 <h3 class="font-robos"><%= @booking.b_reference.upcase %></h3>
 <div class="container-fluid font-robo">
+    <div class="position-absolute end-0 me-5">
+        <div class="border rounded shadow p-2">
+            <div class="font-robos border-bottom p-1">
+                Actions
+            </div>
+            <div class="row mt-2">
+                <div class="col-12">
+                    <div class="text-center">
+                        <%= link_to 'Make Billing', '#', class: "btn btn-outline-secondary disabled" %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row mb-3">
         <div class="col-6">
             <div class="border shadow rounded p-3">
@@ -20,7 +35,10 @@
                 <h5 class="font-robos">Details</h5>
                 <div class="ps-2">
                     <div>
-                        Quotation: <%= @booking.quotation.reference.upcase %>
+                        Quotation: 
+                        <%= link_to users_quotation_path(@booking.quotation) do %>
+                        <%= @booking.quotation.reference.upcase %>
+                        <% end %>
                     </div>
                     <div>
                         Status: <%= @booking.status %>
@@ -79,38 +97,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-12">
-            <div class="border shadow rounded p-3">
-                <h5 class="font-robos">Charges</h5>
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th>Description</th>
-                            <th>Currency</th>
-                            <th>Cost</th>
-                            <th>Frequency</th>
-                            <th>Quantity</th>
-                            <th>Total</th>
-                        </tr>
-                    </thead>
-                    <tbody class="table-group-divider">
-                        <% @booking.quotation.quote_line_items.each do |item| %>
-                        <tr>
-                            <td><%= item.description %></td>
-                            <td><%= item.currency %></td>
-                            <td><%= item.cost %></td>
-                            <td><%= item.frequency %></td>
-                            <td><%= item.quantity %></td>
-                            <td>PlaceHolderTotal</td>
-                        </tr>
-                        <% end %>
-                    </tbody>
-                </table>
             </div>
         </div>
     </div>

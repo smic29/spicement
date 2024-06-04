@@ -20,7 +20,13 @@
                     <% if @quotation.status != 'approved' %>
                     <%= link_to 'Book', '#', class: "btn btn-outline-secondary disabled" %>
                     <% else %>
-                    <%= button_to 'Book', users_bookings_path(quotation_id: @quotation.id), method: :post, class: "btn btn-outline-success" %>
+                        <% unless @quotation.booking %>
+                            <%= button_to 'Book', users_bookings_path(quotation_id: @quotation.id), method: :post, class: "btn btn-outline-success" %>
+                        <% else %>
+                            <button class="btn btn-outline-secondary disabled">
+                                Booked
+                            </button>
+                        <% end %>
                     <% end %>
                 </div>
                 <div class="col-6">
@@ -61,6 +67,14 @@
                     <div>
                         Exchange Rate: <%= number_to_currency_php @quotation.exchange_rate %>
                     </div>
+                    <% if @quotation.booking %>
+                    <div>
+                        Booking Ref: 
+                        <%= link_to users_booking_path(@quotation.booking) do %>
+                        <%= @quotation.booking.b_reference.upcase %>
+                        <% end %>
+                    </div>
+                    <% end %>
                 </div>
             </div>
         </div>
