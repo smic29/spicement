@@ -1,11 +1,15 @@
 <div class="col border rounded p-3 me-3">
     <%= field_title "Client" %>
     <div class="input-group mb-2">
-        <span class="input-group-text">Client Name</span>
+        <span class="input-group-text">Name</span>
         <%= f.text_field :name, class: "form-control", required: true %>
     </div>
-    <div class="input-group">
+    <div class="input-group mb-2">
         <span class="input-group-text">Address</span>
         <%= f.text_area :address, class: "form-control" %>
+    </div>
+    <div class="input-group">
+        <span class="input-group-text">TIN</span>
+        <%= f.text_field :tin_number, class: "form-control" %>
     </div>
 </div>
