@@ -9,6 +9,34 @@
                 <%= render 'users/quotations/new_client', f: c %>
                 <% end %>
             <% end %>
+
+            <div class="col border rounded p-3">
+                <%= field_title "Details" %>
+                <div class="input-group mb-2">
+                    <span class="input-group-text">Booking</span>
+                    <input type="text" class="form-control text-center" disabled value=<%= @booking.b_reference.upcase %>>
+                </div>
+
+                <div class="input-group mb-2">
+                    <span class="input-group-text">Type</span>
+                    <%= f.select :type, Billing::DOC_TYPES, {}, class: "form-select text-center" %>
+                </div>
+
+                <div class="input-group mb-2">
+                    <span class="input-group-text">Status</span>
+                    <%= f.select :status, options_for_select([
+                        ['Draft', 'Draft'],
+                        ['Sent', 'Sent'],
+                        ['Paid', 'Paid']
+                    ], f.object.status), {}, class: "form-select text-center" %>
+                </div>
+
+                <div class="input-group mb-2">
+                    <span class="input-group-text">Exchange Rate</span>
+                    <%= f.number_field :ex_rate, class: "form-control text-center", step: "0.01", min: 0 %>
+                    <span class="input-group-text">PHP</span>
+                </div>
+            </div>
         </div>
     </div>
 <% end %>
