@@ -1,10 +1,11 @@
 <%= turbo_frame_tag "users_frame" do %>
+<div class="border shadow-lg p-4 rounded position-relative">
+    <div class="font-robos">
+        <h3>Make Billing</h3>
+    </div>
 
-<%= form_for @billing, url: users_billings_path do |f| %>
-    <%= f.hidden_field :quotation_id, value: @quote_id %>
-    <%= f.hidden_field :booking_id, value: @booking_id %>
-    
-    Hidden above this my boy
-<% end %>
+    <%= render 'users/billings/form' %>
+</div>
+
 
 <% end %>

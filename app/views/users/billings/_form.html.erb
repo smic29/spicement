@@ -1,0 +1,14 @@
+<%= form_with  model: @billing, url: users_billings_path do |f| %>
+    <%= f.hidden_field :booking_id, value: @booking.id %>
+    <%= f.hidden_field :quotation_id, value: @quotation.id %>
+    
+    <div class="container-fluid">
+        <div class="row font-robo mb-3">
+            <%= f.fields_for :quotation, @billing.quotation do |q| %>
+                <%= q.fields_for :client, @quotation.client do |c| %>
+                <%= render 'users/quotations/new_client', f: c %>
+                <% end %>
+            <% end %>
+        </div>
+    </div>
+<% end %>

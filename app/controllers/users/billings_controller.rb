@@ -11,12 +11,15 @@ class Users::BillingsController < ApplicationController
 
   def new
     @billing = current_user.bookings.new
-    @quote_id = params[:quotation_id]
-    @booking_id = params[:booking_id]
+
+    @quotation = current_user.quotations.find(params[:quotation_id])
+    @billing.quotation = @quotation
+
+    @booking = current_user.bookings.find(params[:booking_id])
   end
 
   def create
-
+    puts 'Triggered'
   end
 
   def edit
