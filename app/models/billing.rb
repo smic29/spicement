@@ -3,7 +3,7 @@ class Billing < ApplicationRecord
   belongs_to :booking
   belongs_to :quotation
 
-  accepts_nested_attributes_for :quotation, update_only: true
+  accepts_nested_attributes_for :quotation, :booking, update_only: true
 
   DOC_TYPES = ['Billing Invoice', 'Statement of Account'].freeze
 

@@ -10,12 +10,14 @@ class Users::BillingsController < ApplicationController
   end
 
   def new
-    @billing = current_user.bookings.new
+    @billing = current_user.billings.new
 
     @quotation = current_user.quotations.find(params[:quotation_id])
     @billing.quotation = @quotation
 
     @booking = current_user.bookings.find(params[:booking_id])
+    @billing.booking = @booking
+
   end
 
   def create

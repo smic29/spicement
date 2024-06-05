@@ -30,11 +30,60 @@
                         ['Paid', 'Paid']
                     ], f.object.status), {}, class: "form-select text-center" %>
                 </div>
+            </div>
+        </div>
 
+        <div class="row font-robo mb-3">
+            <div class="col-12 border rounded p-3">
+                <%= field_title "Shipment Details" %>
                 <div class="input-group mb-2">
-                    <span class="input-group-text">Exchange Rate</span>
-                    <%= f.number_field :ex_rate, class: "form-control text-center", step: "0.01", min: 0 %>
-                    <span class="input-group-text">PHP</span>
+                    <%= fields_for :quotation, @billing.quotation do |q| %>
+                    <span class="input-group-text">Origin</span>
+                    <%= q.text_field :origin, class: "form-control" %>
+                    <span class="input-group-text">Destination</span>
+                    <%= q.text_field :destination, class: "form-control" %>
+                    <% end %>
+                </div>
+
+                <div class="col-12">
+                    <%= fields_for :booking, @billing.booking do |b| %>
+                    <div class="row align-items-center">
+                        <div class="col-9">
+                            <div class="input-group mb-2">
+                                <span class="input-group-text">Vessel</span>
+                                <%= b.text_field :vessel_info, class: "form-control" %>
+                                <span class="input-group-text">BL #</span>
+                                <%= b.text_field :bl_number, class: "form-control" %>
+                                <span class="input-group-text">ETA</span>
+                                <%= b.date_field :eta, class: "form-control" %>
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            <div class="row mb-1">
+                                <div class="input-group">
+                                    <span class="input-group-text">Exchange Rate</span>
+                                    <%= f.number_field :ex_rate, class: "form-control text-center", step: "0.01", min: 0 %>
+                                    <span class="input-group-text">PHP</span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-group mb-2">
+                                    <span class="input-group-text">Cargo Volume</span>
+                                    <%= b.number_field :cargo_volume, class: "form-control text-center", min: 0, step: "0.01" %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="input-group mb-2">
+                            <span class="input-group-text">Description</span>
+                            <%= b.text_field :services, class: "form-control" %>
+                        </div>
+                    </div>
+                    <% end %>
                 </div>
             </div>
         </div>
