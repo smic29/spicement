@@ -52,12 +52,12 @@
                             <div class="row align-items-center">
                                 <div class="col-8">
                                     <div class="row">
-                                        <div class="input-group mb-1">
+                                        <div class="input-group mb-2">
                                             <span class="input-group-text">Vessel</span>
                                             <%= b.text_field :vessel_info, class: "form-control" %>
                                         </div>
 
-                                        <div class="input-group mb-1">
+                                        <div class="input-group">
                                             <span class="input-group-text">BL #</span>
                                             <%= b.text_field :bl_number, class: "form-control" %>
                                         </div>
@@ -69,22 +69,16 @@
                                         <span class="input-group-text">ETA</span>
                                         <%= b.date_field :eta, class: "form-control" %>
                                     </div>
+                                    <div class="input-group">
+                                        <span class="input-group-text">Cargo Volume</span>
+                                        <%= b.number_field :cargo_volume, class: "form-control text-center", min: 0, step: "0.01" %>    
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-
-                        <div class="col-6 mx-auto my-2">
-                            <div class="input-group">
-                                <span class="input-group-text">Exchange Rate</span>
-                                <%= f.number_field :ex_rate, class: "form-control text-center", step: "0.01", min: 0 %>
-                                <span class="input-group-text">PHP</span>
-                                <span class="input-group-text">Cargo Volume</span>
-                                <%= b.number_field :cargo_volume, class: "form-control text-center", min: 0, step: "0.01" %>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="row">
+                    <div class="row mt-3">
                         <div class="input-group mb-2">
                             <span class="input-group-text">Description</span>
                             <%= b.text_field :services, class: "form-control" %>
@@ -92,6 +86,56 @@
                     </div>
                     <% end %>
                 </div>
+            </div>
+        </div>
+
+        <div class="row font-robo mb-3">
+            <div class="col-12 border rounded p-3">
+                <div class="col-4 mx-auto my-2">
+                    <div class="input-group">
+                        <span class="input-group-text">Exchange Rate</span>
+                        <%= f.number_field :ex_rate, class: "form-control text-center", step: "0.01", min: 0 %>
+                        <span class="input-group-text">PHP</span>
+                    </div>
+                </div>
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Currency</th>
+                            <th class="text-center">Unit Price</th>
+                            <th class="text-center">QTY</th>
+                            <th class="text-center">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <%= fields_for :billing_line_items do |bli| %>
+                        <tr>
+                            <td>
+                                <%= bli.text_field :description, class: "form-control" %>
+                            </td>
+                            <td>
+                                <%= bli.select :currency, BillingLineItem::ISO_CURRENCIES, {}, class: "form-select text-center" %>
+                            </td>
+                            <td>
+                                <%= bli.number_field :cost, class: "form-control text-end", step: "0.01", min: 0 %>
+                            </td>
+                            <td>
+                                <%= bli.number_field :quantity, class: "form-control text-center", step: "0.01", min: 0 %>
+                            </td>
+                            <td>
+                                <%= bli.number_field :total, class: "form-control-plaintext text-end", readonly: true %>
+                            </td>
+                            <td>
+                                <%= link_to "#", class: "text-reset text-center" do %>
+                                <i class="bi bi-trash"></i>
+                                <% end %>
+                            </td>
+                        </tr>
+                        <% end %>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
