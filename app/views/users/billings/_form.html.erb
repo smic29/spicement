@@ -86,7 +86,7 @@
             </div>
         </div>
 
-        <div class="row font-robo mb-3">
+        <div class="row font-robo mb-3" data-controller="billing-line-item">
             <div class="col-12 border rounded p-3">
                 <div class="col-4 mx-auto my-2">
                     <div class="input-group">
@@ -106,32 +106,21 @@
                             <th class="text-center">Total</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody data-billing-line-item-target="container">
                         <%= f.fields_for :billing_line_items do |bli| %>
-                        <tr>
-                            <td>
-                                <%= bli.text_field :description, class: "form-control" %>
-                            </td>
-                            <td>
-                                <%= bli.select :currency, BillingLineItem::ISO_CURRENCIES, {}, class: "form-select text-center" %>
-                            </td>
-                            <td>
-                                <%= bli.number_field :cost, class: "form-control text-end", step: "0.01", min: 0 %>
-                            </td>
-                            <td>
-                                <%= bli.number_field :quantity, class: "form-control text-center", step: "0.01", min: 0 %>
-                            </td>
-                            <td>
-                                <%= bli.number_field :total, class: "form-control-plaintext text-end", readonly: true %>
-                            </td>
-                            <td>
-                                <%= link_to "#", class: "text-reset text-center" do %>
-                                <i class="bi bi-trash"></i>
-                                <% end %>
-                            </td>
-                        </tr>
+                            <template data-billing-line-item-target="template">
+                                <%= render 'users/billings/line_items', bli: bli %>
+                            </template>
+                            <%= render 'users/billings/line_items', bli: bli %>
                         <% end %>
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>
+                                <button id="addBillingLineItem" type="button" class="btn btn-sm btn-outline-success" data-action="billing-line-item#add">Add Row</button>
+                            </td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>

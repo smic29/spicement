@@ -1,0 +1,22 @@
+<tr data-billing-line-item-target="item">
+    <td>
+        <%= bli.text_field :description, class: "form-control" %>
+    </td>
+    <td>
+        <%= bli.select :currency, BillingLineItem::ISO_CURRENCIES, {}, class: "form-select text-center" %>
+    </td>
+    <td>
+        <%= bli.number_field :cost, class: "form-control text-end", step: "0.01", min: 0 %>
+    </td>
+    <td>
+        <%= bli.number_field :quantity, class: "form-control text-center", step: "0.01", min: 0 %>
+    </td>
+    <td>
+        <%= bli.number_field :total, class: "form-control-plaintext text-end", readonly: true %>
+    </td>
+    <td>
+        <%= link_to "#", class: "text-reset text-center", data: { action: 'billing-line-item#remove' } do %>
+        <i class="bi bi-trash"></i>
+        <% end %>
+    </td>
+</tr>
