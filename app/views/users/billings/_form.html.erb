@@ -91,7 +91,9 @@
                 <div class="col-4 mx-auto my-2">
                     <div class="input-group">
                         <span class="input-group-text">Exchange Rate</span>
-                        <%= f.number_field :ex_rate, class: "form-control text-center", step: "0.01", min: 0 %>
+                        <%= f.number_field :ex_rate, class: "form-control text-center", step: "0.01", min: 0, data: {
+                            billing_line_item_target: :exchange
+                        } %>
                         <span class="input-group-text">PHP</span>
                     </div>
                 </div>
@@ -116,8 +118,12 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td>
+                            <td colspan="3">
                                 <button id="addBillingLineItem" type="button" class="btn btn-sm btn-outline-success" data-action="billing-line-item#add">Add Row</button>
+                            </td>
+                            <td class="text-end fw-semibold">Sub Total</td>
+                            <td class="text-center">
+                                <span class="fw-bold" data-billing-line-item-target="subtotal"></span>
                             </td>
                         </tr>
                     </tfoot>

@@ -2,14 +2,37 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="billing-line-item"
 export default class extends Controller {
-  static targets = ["container", "template", "item"]
+  static targets = ["container", "template", "item", "exchange", "subtotal", "total"]
 
   initialize(){
     // console.log(this.templateTarget.innerHTML)
-    console.log(this.containerTarget.querySelectorAll('tr'))
+    // console.log(this.containerTarget.querySelectorAll('tr'))
     // console.log(this.itemTargets.length)
+    // console.log(this.exchangeTarget)
 
     this.indexValue = this.itemTargets.length
+
+    this.exchangeTarget.addEventListener("change", () => {
+      this.updateSumTotal()
+    })
+
+    this.containerTarget.addEventListener("change",() => {
+      this.updateSumTotal()
+    })
+  }
+
+  updateSumTotal() {
+    let sum = 0
+
+    this.itemTargets.forEach((item) => {
+      const totalEl = item.querySelector('[id*="_total"]')
+
+      sum += parseFloat(totalEl.value === NaN || totalEl.value === '' ? 0 : totalEl.value )
+    })
+
+    const formattedSum = sum.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2})
+    this.subtotalTarget.textContent = formattedSum
+
   }
 
   add() {
@@ -31,6 +54,7 @@ export default class extends Controller {
 
       this.indexValue--
       this.updateIndices(lineItemIndex)
+      this.updateSumTotal()
     }
     
   }

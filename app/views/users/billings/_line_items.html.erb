@@ -1,18 +1,26 @@
-<tr data-billing-line-item-target="item">
+<tr data-billing-line-item-target="item" data-controller="bli-calc">
     <td>
         <%= bli.text_field :description, class: "form-control" %>
     </td>
     <td>
-        <%= bli.select :currency, BillingLineItem::ISO_CURRENCIES, {}, class: "form-select text-center" %>
+        <%= bli.select :currency, BillingLineItem::ISO_CURRENCIES, {}, class: "form-select text-center", data: {
+            bli_calc_target: "currency", action: "bli-calc#updateTotal"
+        } %>
     </td>
     <td>
-        <%= bli.number_field :cost, class: "form-control text-end", step: "0.01", min: 0 %>
+        <%= bli.number_field :cost, class: "form-control text-end", step: "0.01", min: 0, data: {
+            bli_calc_target: "cost", action: "bli-calc#updateTotal"
+        } %>
     </td>
     <td>
-        <%= bli.number_field :quantity, class: "form-control text-center", step: "0.01", min: 0 %>
+        <%= bli.number_field :quantity, class: "form-control text-center", step: "0.01", min: 0, data: {
+            bli_calc_target: "quantity", action: "bli-calc#updateTotal"
+        } %>
     </td>
     <td>
-        <%= bli.number_field :total, class: "form-control-plaintext text-end", readonly: true %>
+        <%= bli.number_field :total, class: "form-control-plaintext text-end", readonly: true, data: {
+            billing_line_item_target: "total", bli_calc_target: "total"
+        } %>
     </td>
     <td>
         <%= link_to "#", class: "text-reset text-center", data: { action: 'billing-line-item#remove' } do %>
