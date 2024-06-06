@@ -18,6 +18,7 @@ class Users::BillingsController < ApplicationController
     @booking = current_user.bookings.find(params[:booking_id])
     @billing.booking = @booking
 
+    @billing.billing_line_items.build
   end
 
   def create
