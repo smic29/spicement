@@ -1,5 +1,6 @@
 class Users::BillingsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_service, only: [ :create ]
 
   def index
 
@@ -22,7 +23,14 @@ class Users::BillingsController < ApplicationController
   end
 
   def create
-    puts 'Entered Create Action'
+    @booking = @service.create_billing(billing_params)
+
+    if @booking.save
+      puts "Creation Successful"
+    else
+      puts "Creation Failed"
+      puts @booking.errors.full_messages
+    end
   end
 
   def edit
@@ -37,7 +45,7 @@ class Users::BillingsController < ApplicationController
 
   def billing_params
     params.require(:billing).permit(
-      :booking_id, :quotation_id, :type, :status, :ex_rate,
+      :booking_id, :quotation_id, :doc_type, :status, :ex_rate,
       quotation_attributes: [
         :origin, :destination, :id,
         client_attributes: [:name, :address, :tin_number, :id]
@@ -49,5 +57,9 @@ class Users::BillingsController < ApplicationController
         :description, :currency, :cost, :quantity, :total
       ]
     )
+  end
+
+  def set_service
+    @service = Users::Billing::Create.new(current_user)
   end
 end

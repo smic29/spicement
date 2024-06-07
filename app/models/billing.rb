@@ -5,7 +5,7 @@ class Billing < ApplicationRecord
   has_many :billing_line_items
 
   accepts_nested_attributes_for :quotation, :booking, update_only: true
-  accepts_nested_attributes_for :billing_line_items, allow_destroy: true
+  accepts_nested_attributes_for :billing_line_items, allow_destroy: true, reject_if: proc { |attr| attr['total'].blank? }
 
   DOC_TYPES = ['Billing Invoice', 'Statement of Account'].freeze
 
