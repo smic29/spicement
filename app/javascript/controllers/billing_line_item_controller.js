@@ -7,6 +7,20 @@ export default class extends Controller {
   initialize(){
     this.indexValue = this.itemTargets.length
 
+    this.itemTargets.forEach((item) => {
+      if (item.querySelector('input').value !== "") {
+        this.updateSumTotal()
+      }
+    })
+
+    if (this.templateTargets.length > 1) {
+      this.templateTargets.forEach((template, index) => {
+        if (index > 0) {
+          template.remove()
+        }
+      })
+    }
+
     this.exchangeTarget.addEventListener("change", () => {
       this.updateSumTotal()
     })
@@ -34,7 +48,8 @@ export default class extends Controller {
     const content = this.templateTarget.innerHTML
     .replace(/name="billing\[billing_line_items_attributes\]\[\d+\]\[/g, `name="billing[billing_line_items_attributes][${this.indexValue}][`)
     .replace(/id="billing_billing_line_items_attributes_\d+_/g, `id="billing_billing_line_items_attributes_${this.indexValue}_`)
-    
+    .replace(/(<input[^>]* value=")[^"]*"/g, '$1"')
+
     this.containerTarget.insertAdjacentHTML('beforeend', content)
     this.indexValue++
   }
