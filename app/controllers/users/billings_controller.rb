@@ -1,9 +1,10 @@
 class Users::BillingsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_service, only: [ :create ]
+  before_action :set_billing, only: [ :show, :edit, :update ]
 
   def index
-
+    @billings = current_user.billings.includes(:booking).all.order('bookings.id', :created_at)
   end
 
   def show
@@ -42,6 +43,10 @@ class Users::BillingsController < ApplicationController
   end
 
   private
+
+  def set_billing
+    @billing = current_user.find(params[:id])
+  end
 
   def billing_params
     params.require(:billing).permit(
