@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_06_122036) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_07_083817) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -59,7 +59,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_06_122036) do
     t.bigint "booking_id", null: false
     t.bigint "quotation_id", null: false
     t.decimal "total_amount", precision: 10, scale: 2
-    t.string "type"
+    t.string "doc_type"
     t.decimal "ex_rate", precision: 10, scale: 2
     t.string "job_description"
     t.datetime "created_at", null: false
