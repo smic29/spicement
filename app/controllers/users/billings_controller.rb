@@ -28,9 +28,11 @@ class Users::BillingsController < ApplicationController
 
     if @booking.save
       puts "Creation Successful"
+      render :show
     else
       puts "Creation Failed"
       puts @booking.errors.full_messages
+      render :new
     end
   end
 
@@ -45,7 +47,7 @@ class Users::BillingsController < ApplicationController
   private
 
   def set_billing
-    @billing = current_user.find(params[:id])
+    @billing = current_user.billings.find(params[:id])
   end
 
   def billing_params

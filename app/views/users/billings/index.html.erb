@@ -25,7 +25,7 @@
                     </td>
                     <% current_booking_id = billing.booking_id %>
                 <% end %>
-                <td><%= link_to billing.doc_type, users_billings_path(billing) %></td>
+                <td><%= link_to billing.doc_type, users_billing_path(billing) %></td>
                 <td class="text-center"><%= billing.created_at.strftime('%m-%d-%y') %></td>
             </tr>
             <% end %>

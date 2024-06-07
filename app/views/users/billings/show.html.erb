@@ -1,0 +1,141 @@
+<%= turbo_frame_tag "users_frame" do %>
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-1">
+        <h3 class="font-robos">
+            <%= @billing.doc_type %> for <%= link_to @billing.booking.b_reference.upcase, users_booking_path(@billing.booking), class: "text-reset" %>
+        </h3>
+        <%= link_to 'Edit', edit_users_billing_path(@billing), class: "btn btn-sm btn-outline-warning" %>
+    </div>
+    <div class="row font-robo mb-3">
+        <div class="col-6">
+            <div class="rounded border shadow p-3">
+                <%= field_title "Client" %>
+
+                <div class="ps-2">
+                    <div class="mb-1">
+                        <%= @billing.quotation.client.name.titleize %>
+                    </div>
+
+                    <div>
+                        <%= @billing.quotation.client.address.titleize %>
+                    </div>
+
+                    <div class="small fw-light">
+                        TIN : <%= @billing.quotation.client.tin_number %>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-6">
+            <div class="border rounded shadow p-3">
+                <%= field_title "Details" %>
+                <div class="ps-2">
+                    <div class="mb-1">
+                        Status: <%= @billing.status %>
+                    </div>
+                    <div>
+                        Created on: <%= @billing.created_at.strftime('%m-%d-%y') %>
+                    </div>
+                    <div class="small fw-light">
+                        Last updated <%= time_ago_in_words(@billing.updated_at) + ' ago' %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row font-robo mb-3">
+        <div class="col-12">
+            <div class="border rounded shadow p-3">
+                <%= field_title "Shipment Details" %>
+                <div class="ps-2 border-start">
+                    <div class="d-flex justify-content-between">
+                        <div class="col-6">
+                            <span class="fw-semibold">Origin :</span>
+                            <span>
+                                <%= @billing.quotation.origin %>
+                            </span>
+                        </div>
+                        <div class="col-6">
+                            <span class="fw-semibold">Destination: </span>
+                            <span>
+                                <%= @billing.quotation.destination %>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ps-2 border-start mt-2 mb-1">
+                    <div class="d-flex justify-content-between">
+                        <div class="col-6">
+                            <div>
+                                <span class="fw-semibold">Vessel :</span>
+                                <%= @billing.booking.vessel_info %>
+                            </div>
+                            <div>
+                                <span class="fw-semibold">BL # :</span>
+                                <%= @billing.booking.bl_number.upcase %>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div>
+                                <span class="fw-semibold">ETA :</span>
+                                <%= @billing.booking.eta %>
+                            </div>
+                            <div>
+                                <span class="fw-semibold">Cargo Volume :</span>
+                                <%= @billing.booking.cargo_volume %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ps-2 border-start">
+                    <div>
+                        <span class="fw-semibold">Description :</span>
+                        <%= @billing.booking.services %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row font-robo">
+        <div class="col-12">
+            <div class="border shadow rounded p-3">
+                <table class="table align-middle">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Currency</th>
+                            <th>Unit Price</th>
+                            <th>QTY</th>
+                            <th>Exchange Rate</th>
+                            <th class="text-center">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% @billing.billing_line_items.each do |item| %>
+                        <tr>
+                            <td><%= item.description %></td>
+                            <td><%= item.currency %></td>
+                            <td><%= item.currency == 'PHP' ? number_to_currency_php(item.cost) : number_to_currency(item.cost) %></td>
+                            <td><%= item.quantity %></td>
+                            <td class="text-center"><%= number_to_currency_php @billing.ex_rate %></td>
+                            <td class="text-end"><%= number_to_currency_php item.total %></td>
+                        </tr>
+                        <% end %>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5" class="fw-bold">Sub Total</td>
+                            <td class="text-center fw-bold"><%= number_to_currency_php @billing.total_amount %></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<% end %>
