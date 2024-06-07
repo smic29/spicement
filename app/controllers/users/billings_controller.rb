@@ -1,6 +1,6 @@
 class Users::BillingsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_service, only: [ :create ]
+  before_action :set_service, only: [ :create, :update ]
   before_action :set_billing, only: [ :show, :edit, :update ]
 
   def index
@@ -43,7 +43,14 @@ class Users::BillingsController < ApplicationController
   end
 
   def update
+    processed_params = @service.update_billing(billing_params, @billing)
 
+    if @billing.update(processed_params)
+      render :show
+    else
+      puts @billing.errors.full_messages
+      render :edit
+    end
   end
 
   private
@@ -63,7 +70,7 @@ class Users::BillingsController < ApplicationController
         :vessel_info, :bl_number, :eta, :cargo_volume, :services, :id
       ],
       billing_line_items_attributes: [
-        :description, :currency, :cost, :quantity, :total
+        :description, :currency, :cost, :quantity, :total, :id
       ]
     )
   end
