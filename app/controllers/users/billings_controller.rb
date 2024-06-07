@@ -24,9 +24,9 @@ class Users::BillingsController < ApplicationController
   end
 
   def create
-    @booking = @service.create_billing(billing_params)
+    @billing = @service.create_billing(billing_params)
 
-    if @booking.save
+    if @billing.save
       puts "Creation Successful"
       render :show
     else
