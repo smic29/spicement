@@ -37,6 +37,8 @@ class Users::BillingsController < ApplicationController
   end
 
   def edit
+    @booking = current_user.bookings.find(@billing.booking.id)
+    @quotation = current_user.quotations.find(@billing.quotation.id)
 
   end
 

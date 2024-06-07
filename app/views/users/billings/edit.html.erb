@@ -1,0 +1,9 @@
+<%= turbo_frame_tag "users_frame" do %>
+<div class="border shadow-lg p-4 rounded position-relative">
+    <div class="font-robos">
+        <h3>Edit <%= @billing.booking.b_reference.upcase %> <%= @billing.doc_type %></h3>
+    </div>
+
+    <%= render 'users/billings/form' %>
+</div>
+<% end %>
