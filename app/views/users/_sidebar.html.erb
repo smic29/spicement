@@ -14,7 +14,7 @@
                 <% end %>
                 <%= link_to 'Quotations', users_quotations_path, class: "nav-link text-reset user-select-none", data: { turbo_frame: :users_frame, navbar_target: :links } %>
                 <%= link_to 'Bookings', users_bookings_path, class: "nav-link text-reset user-select-none", data: { turbo_frame: :users_frame, navbar_target: :links } %>
-                <%= link_to 'Billings', root_path, class: "nav-link text-reset user-select-none", data: { navbar_target: :links } %>
+                <%= link_to 'Billings', users_billings_path, class: "nav-link text-reset user-select-none", data: { turbo_frame: :users_frame, navbar_target: :links } %>
             </nav>
         </div>
         <div class="text-center">
