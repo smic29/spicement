@@ -5,11 +5,6 @@ export default class extends Controller {
   static targets = ["container", "template", "item", "exchange", "subtotal", "total"]
 
   initialize(){
-    // console.log(this.templateTarget.innerHTML)
-    // console.log(this.containerTarget.querySelectorAll('tr'))
-    // console.log(this.itemTargets.length)
-    // console.log(this.exchangeTarget)
-
     this.indexValue = this.itemTargets.length
 
     this.exchangeTarget.addEventListener("change", () => {

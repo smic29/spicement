@@ -8,7 +8,7 @@ export default class extends Controller {
     const exchangeRateEl = document.querySelector('#billing_ex_rate')
     this.exchangeRate = parseFloat(exchangeRateEl.value) || 0
 
-    exchangeRateEl.addEventListener('change', () => {
+    exchangeRateEl.addEventListener('input', () => {
       this.exchangeRate = parseFloat(exchangeRateEl.value) || 0
       this.updateTotal()
     })
