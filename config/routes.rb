@@ -34,7 +34,11 @@ Rails.application.routes.draw do
       end
 
       resources :bookings, only: [ :index, :show, :update, :edit, :create ]
-      resources :billings, only: [ :index, :show, :new, :create, :update, :edit ]
+      resources :billings, only: [ :index, :show, :new, :create, :update, :edit ] do
+        member do
+          get 'pdf' => "billings#pdf"
+        end
+      end
 
       namespace :manager do
         resources :company, only: [ :show, :edit, :update ]

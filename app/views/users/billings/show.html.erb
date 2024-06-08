@@ -6,6 +6,20 @@
         </h3>
         <%= link_to 'Edit', edit_users_billing_path(@billing), class: "btn btn-sm btn-outline-warning" %>
     </div>
+
+    <div class="position-absolute end-0 me-5">
+        <div class="border rounded shadow p-2">
+            <div class="font-robos border-bottom p-1">
+                Actions
+            </div>
+            <div class="row mt-2">
+                <div class="col-6">
+                    <%= link_to 'Print', pdf_users_billing_path(@billing), class: "btn btn-outline-info", target: :_blank, data: { turbo_frame: :_top } %>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row font-robo mb-3">
         <div class="col-6">
             <div class="rounded border shadow p-3">
