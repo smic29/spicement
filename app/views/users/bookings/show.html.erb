@@ -1,6 +1,9 @@
 <%= turbo_frame_tag "users_frame" do %>
-<h3 class="font-robos"><%= @booking.b_reference.upcase %></h3>
 <div class="container-fluid font-robo">
+    <div class="d-flex justify-content-between align-items-center mb-1">
+        <h3 class="font-robos"><%= @booking.b_reference.upcase %></h3>
+        <%= link_to 'Edit', edit_users_booking_path(@booking), class: "btn btn-sm btn-outline-warning" %>
+    </div>
     <div class="position-absolute end-0 me-5">
         <div class="border rounded shadow p-2">
             <div class="font-robos border-bottom p-1">

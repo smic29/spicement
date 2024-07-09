@@ -1,12 +1,13 @@
 class Users::BookingsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_booking, only: [ :show, :edit, :update ]
 
   def index
     @bookings = current_user.bookings.all
   end
 
   def show
-    @booking = current_user.bookings.find(params[:id])
+
   end
 
   def create
@@ -21,5 +22,19 @@ class Users::BookingsController < ApplicationController
       puts @booking.errors.full_messages
       render :index
     end
+  end
+
+  def edit
+
+  end
+
+  def update
+
+  end
+
+  private
+
+  def set_booking
+    @booking = current_user.bookings.find(params[:id])
   end
 end
