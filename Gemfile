@@ -80,3 +80,4 @@ gem "hotwire-livereload", "~> 1.4", :group => :development
 
 gem "wicked_pdf"
 gem "wkhtmltopdf-binary"
+gem 'numbers_and_words', '~> 0.11.12'

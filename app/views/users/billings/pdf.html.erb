@@ -23,12 +23,17 @@
                 </small>
             </div>
         </div>
+        <%# Will need to find a way to incorporate this into a specific company setting %>
+        <small>
+            NON-VAT REG. TIN # 501-594-979-000
+        </small>
     </div>
 </div>
 
 <div class="mt-3">
     <h2><%= @billing.doc_type %>:</h2>
 </div>
+<br>
 
 
 <div style="display: -webkit-box; -webkit-box-pack: justify;" class="mt-2">
@@ -49,7 +54,7 @@
                 Date: <%= @billing.created_at.strftime("%m/%d/%y") %>
             </div>
             <div>
-                Booking: <%= @billing.booking.b_reference.upcase %>
+                Reference No.: <%= @billing.booking.b_reference.upcase %>
             </div>
         </div>
     </fieldset>
@@ -58,7 +63,7 @@
 <fieldset style="border: 1px solid black; min-width: 300px" class="p-3 mt-3">
     <legend style="float: none; width: auto; border: 2px solid black; background-color: white; border-radius: 5px;" class="px-2 fw-semibold">Shipment Info</legend>
     <div class="ps-2">
-        <div style="display: -webkit-box;">
+        <div class="mb-1" style="display: -webkit-box;">
             <div>
                 <span>
                     Origin :
@@ -74,15 +79,27 @@
         </div>
         <div>
             <span>
-                INCOTERM :
+                Bill of Lading No :
             </span>
-            <%= @billing.quotation.incoterm %>
+            <%= @billing.booking.bl_number.upcase %>
+        </div>
+        <div class="mb-1">
+            <span>
+                Vessel :
+            </span>
+            <%= @billing.booking.vessel_info.upcase %>
+        </div>
+        <div>
+            <span>
+                Job Description :
+            </span>
+            <%= @billing.job_description %>
         </div>
     </div>
 </fieldset>
 
 <fieldset style="border: 1px solid black; min-width: 300px" class="py-3 mt-3">
-    <legend style="float: none; width: auto; border: 2px solid black; background-color: white; border-radius: 5px;" class="px-3 fw-semibold text-center">Charges</legend>
+    <legend style="float: none; width: auto; border: 2px solid black; background-color: white; border-radius: 5px;" class="px-3 fw-semibold text-center">We are billing you for the following</legend>
     <div>
         <table class="table">
             <thead>
@@ -114,10 +131,18 @@
                 </tr>
             </tfoot>
         </table>
+        <div class="ms-2 fw-bold">
+            <%= convert_to_words @billing.total_amount %>
+        </div>
     </div>
 </fieldset>
 
-<div class="mt-5 p-3" style="border: 2px dotted black">
+<div class="mt-5 p-3" style="border: 2px dotted black; display: -webkit-box; -webkit-box-pack: justify;">
+    <div>
+        <small class="fw-bold">
+            *This is not valid for input tax claim*
+        </small>
+    </div>
     <div>
         <small>
             Prepared by: <%= current_user.full_name %>
