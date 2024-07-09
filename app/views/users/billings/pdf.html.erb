@@ -42,8 +42,8 @@
         <legend style="float: none; width: auto; border: 2px solid black; background-color: white; border-radius: 5px;" class="px-3 fw-semibold">For</legend>
         <div class="ps-2">
             <p class="mb-0 fw-semi-bold"><%= @billing.quotation.client.name.titleize %></p>
-            <p><%= @billing.quotation.client.address.titleize %></p>
-            <p><%= @billing.quotation.client.tin_number %></p>
+            <p class="mb-0"><%= @billing.quotation.client.address.titleize %></p>
+            <p>TIN: <%= @billing.quotation.client.tin_number %></p>
         </div>
     </fieldset>
     
@@ -63,37 +63,53 @@
 <fieldset style="border: 1px solid black; min-width: 300px" class="p-3 mt-3">
     <legend style="float: none; width: auto; border: 2px solid black; background-color: white; border-radius: 5px;" class="px-2 fw-semibold">Shipment Info</legend>
     <div class="ps-2">
-        <div class="mb-1" style="display: -webkit-box;">
+        <div class="mb-1" style="display: -webkit-box; -webkit-box-pack: justify;">
             <div>
-                <span>
-                    Origin :
-                </span>
-                <%= @billing.quotation.origin %>
+                <div>
+                    <span>
+                        Origin :
+                    </span>
+                    <%= @billing.quotation.origin %>
+                </div>
+                <div class="mb-3">
+                    <span>
+                        Destination :
+                    </span>
+                    <%= @billing.quotation.destination %>
+                </div>
+                <div>
+                    <span>
+                        Job Description :
+                    </span><br>
+                    <%= @billing.booking.services %>
+                </div>
             </div>
-            <div class="ms-3">
-                <span>
-                    Destination :
-                </span>
-                <%= @billing.quotation.destination %>
+            <div>
+                <div>
+                    <span>
+                        Bill of Lading No :
+                    </span>
+                    <%= @billing.booking.bl_number.upcase %>
+                </div>
+                <div>
+                    <span>
+                        ETA :
+                    </span>
+                    <%= @billing.booking.eta %>
+                </div>
+                <div>
+                    <span>
+                        Vessel :
+                    </span>
+                    <%= @billing.booking.vessel_info.upcase %>
+                </div>
+                <div>
+                    <span>
+                        Cargo Volume :
+                    </span>
+                    <%= @billing.booking.cargo_volume %>
+                </div>
             </div>
-        </div>
-        <div>
-            <span>
-                Bill of Lading No :
-            </span>
-            <%= @billing.booking.bl_number.upcase %>
-        </div>
-        <div class="mb-1">
-            <span>
-                Vessel :
-            </span>
-            <%= @billing.booking.vessel_info.upcase %>
-        </div>
-        <div>
-            <span>
-                Job Description :
-            </span>
-            <%= @billing.job_description %>
         </div>
     </div>
 </fieldset>
