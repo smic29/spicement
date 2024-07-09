@@ -7,6 +7,8 @@ class Booking < ApplicationRecord
 
   delegate :client, to: :quotation
 
+  accepts_nested_attributes_for :quotation, update_only: true
+
   before_create :generate_unique_reference
 
   validates :quotation_id, :user_id, presence: true

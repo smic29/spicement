@@ -1,5 +1,75 @@
 <%= turbo_frame_tag "users_frame" do %>
-Hello World!
-<br>
-<%= link_to 'Back', users_booking_path(@booking) %>
+<div class="border shadow-lg p-4 rounded position-relative">
+    <div class="font-robos d-flex justify-content-between align-items-center">
+        <h3>Editing <%= @booking.b_reference.upcase %></h3>
+        <%= link_to 'Cancel', users_booking_path(@booking), class: "btn btn-sm btn-outline-secondary" %>
+    </div>
+
+    <%= form_with model: @booking, url: users_booking_path(@booking) do |f| %>
+        <%= f.hidden_field :quotation_id, value: @booking.quotation.id %>
+        <%= f.fields_for :quotation, @booking.quotation do |q| %>
+
+        <div class="container-fluid">
+            <div class="row font-robo mb-3">
+                <%= q.fields_for :client, @booking.quotation.client do |c| %>
+                <%= render 'users/quotations/new_client', f: c %>
+                <% end %>
+
+                <div class="col border rounded p-3">
+                    <%= field_title "Details" %>
+                    <div class="input-group mb-2">
+                        <span class="input-group-text">Quotation Ref.</span>
+                        <input type="text" class="form-control text-center" disabled value=<%= @booking.quotation.reference.upcase %>>
+                    </div>
+
+                    <div class="input-group mb-2">
+                        <span class="input-group-text">Status</span>
+                        <%= f.select :status, options_for_select([
+                            ['Ongoing', 'Ongoing'],
+                            ['Completed', 'Completed'],
+                            ['Cancelled', 'Cancelled']
+                        ], f.object.status), {}, class: "form-select text-center" %>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row font-robo mb-3">
+                <div class="col-12 border rounded p-3">
+                    <%= field_title "Shipment Details" %>
+                    <div class="input-group mb-2">
+                        <span class="input-group-text">Origin</span>
+                        <%= q.text_field :origin, class: "form-control" %>
+                        <span class="input-group-text">Destination</span>
+                        <%= q.text_field :destination, class: "form-control" %>
+                    </div>
+
+                    <div class="input-group mb-2">
+                        <span class="input-group-text">BL No.</span>
+                        <%= f.text_field :bl_number, class: "form-control" %>
+                        <span class="input-group-text">Vessel</span>
+                        <%= f.text_field :vessel_info, class: "form-control" %>
+                    </div>
+
+                    <div class="input-group mb-2">
+                        <span class="input-group-text">Cargo Volume</span>
+                        <%= f.text_field :cargo_volume, class: "form-control" %>
+                        <span class="input-group-text">ETA</span>
+                        <%= f.date_field :eta, class: "form-control" %>
+                    </div>
+
+                    <div class="input-group mb-2">
+                        <span class="input-group-text">Incoterm</span>
+                        <%= q.text_field :incoterm, class: "form-control" %>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <% end %>
+        <div>
+            <%= f.submit "Submit", disable_with: 'Submiting...' %>
+        </div>
+    <% end %>
+</div>
 <% end %>

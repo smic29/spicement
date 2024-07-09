@@ -29,12 +29,26 @@ class Users::BookingsController < ApplicationController
   end
 
   def update
-
+    if @booking.update(booking_params)
+      render :show
+    else
+      render :edit
+    end
   end
 
   private
 
   def set_booking
     @booking = current_user.bookings.find(params[:id])
+  end
+
+  def booking_params
+    params.require(:booking).permit(
+      :quotation_id, :status,
+      quotation_attributes: [
+        :origin, :destination, :incoterm, :id,
+        client_attributes: [ :name, :address, :tin_number, :id ]
+      ]
+    )
   end
 end
