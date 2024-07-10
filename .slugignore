@@ -1,0 +1,15 @@
+# Exclude node_modules
+node_modules/
+
+# Exclude log files
+log/
+*.log
+
+# Exclude temporary files and test and spec directories
+tmp/
+*.tmp
+test/
+spec/
+
+# Exclude documentation files
+*.md 
