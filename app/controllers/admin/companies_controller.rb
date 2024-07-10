@@ -15,6 +15,7 @@ class Admin::CompaniesController < ApplicationController
 
     if service.call
       respond_to do |format|
+        @companies = Company.where(approved: false)
         flash[:notice] = "Company Approved. User Created. Email Sent"
         format.html { redirect_to root_path }
         format.turbo_stream { render turbo_stream: [
