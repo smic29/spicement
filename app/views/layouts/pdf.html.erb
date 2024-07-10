@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>PDF Document</title>
-  <%= wicked_pdf_stylesheet_link_tag 'application', media: 'all' %>
+  <%= wicked_pdf_stylesheet_link_tag 'application', media: 'all' if wicked_pdf_asset_base64('application.css') %>
 </head>
 <body>
   <%= yield %>
