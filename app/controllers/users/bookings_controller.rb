@@ -3,7 +3,7 @@ class Users::BookingsController < ApplicationController
   before_action :set_booking, only: [ :show, :edit, :update ]
 
   def index
-    @bookings = current_user.bookings.all
+    @bookings = current_user.bookings.all.order(updated_at: :desc)
   end
 
   def show
