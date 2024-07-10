@@ -44,7 +44,7 @@ class Users::BookingsController < ApplicationController
 
   def booking_params
     params.require(:booking).permit(
-      :quotation_id, :status,
+      :quotation_id, :status, :bl_number, :vessel_info, :cargo_volume, :eta,
       quotation_attributes: [
         :origin, :destination, :incoterm, :id,
         client_attributes: [ :name, :address, :tin_number, :id ]
