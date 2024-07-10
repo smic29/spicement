@@ -1,8 +1,7 @@
 /node_modules
 /log
 /tmp
-/test
-/spec
+tmp/
 *.log
 *.tmp
 *.md
