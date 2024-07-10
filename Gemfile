@@ -80,8 +80,8 @@ gem "devise", "~> 4.9"
 gem "hotwire-livereload", "~> 1.4", :group => :development
 
 gem "wicked_pdf"
-group :production do
-  gem 'wkhtmltopdf-heroku', '2.12.6.1.pre.jammy' 
-end
+
+gem 'wkhtmltopdf-heroku', '2.12.6.1.pre.jammy' 
+
 
 gem 'numbers_and_words', '~> 0.11.12'
