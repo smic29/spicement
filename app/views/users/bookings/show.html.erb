@@ -2,7 +2,10 @@
 <div class="container-fluid font-robo">
     <div class="d-flex justify-content-between align-items-center mb-1">
         <h3 class="font-robos"><%= @booking.b_reference.upcase %></h3>
-        <%= link_to 'Edit', edit_users_booking_path(@booking), class: "btn btn-sm btn-outline-warning" %>
+        <div class="d-flex justify-content between">
+            <%= link_to 'Back to Bookings Index', users_bookings_path, class: "btn btn-sm btn-outline-secondary" %>
+            <%= link_to 'Edit', edit_users_booking_path(@booking), class: "btn btn-sm btn-outline-warning ms-2" %>
+        </div>
     </div>
     <div class="position-absolute end-0 me-5">
         <div class="border rounded shadow p-2">
@@ -12,7 +15,11 @@
             <div class="row mt-2">
                 <div class="col-12">
                     <div class="text-center">
+                        <% if @booking.billings.count == 2 %>
+                        <%= link_to 'Make Billing', new_users_billing_path(quotation_id: @booking.quotation.id, booking_id: @booking.id), class: "btn btn-outline-secondary disabled" %>
+                        <% else %>
                         <%= link_to 'Make Billing', new_users_billing_path(quotation_id: @booking.quotation.id, booking_id: @booking.id), class: "btn btn-outline-secondary" %>
+                        <% end %>
                     </div>
                 </div>
             </div>
@@ -21,7 +28,7 @@
 
     <div class="row mb-3">
         <div class="col-6">
-            <div class="border shadow rounded p-3">
+            <div class="border shadow rounded p-3 h-100">
                 <h5 class="font-robos">Client</h5>
                 <div class="ps-2">
                     <div>
@@ -45,6 +52,20 @@
                     </div>
                     <div>
                         Status: <%= @booking.status %>
+                    </div>
+                    <div>
+                        Billings:
+                        <ul class="list-group">
+                            <% if @booking.billings.count > 0 %>
+                                <% @booking.billings.each do |billing| %>
+                                    <%= link_to billing.doc_type, users_billing_path(billing), class: "list-group-item list-group-item-action" %>
+                                <% end %>
+                            <% else %>
+                            <li class="list-group-item">
+                                None
+                            </li>
+                            <% end %>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -90,16 +111,10 @@
                 <div class="ps-2">
                     <div class="row">
                         <div class="col-12">
-                            Services: <%= @booking.services %>
+                            Quoted Amount: <%= number_to_currency_php @booking.quotation.total_price %>
                         </div>
-                        <div class="col-6">
-                            Receivable: <%= number_to_currency_php @booking.receivable %>
-                        </div>
-                        <div class="col-6">
-                            Cost: <%= number_to_currency_php @booking.cost %>
-                        </div>
-                        <div class="col-6">
-                            Profit: <%= number_to_currency_php @booking.profit %>
+                        <div class="col-12">
+                            Billed Amount: <%= number_to_currency_php(@booking.billings.sum(:total_amount)) %>
                         </div>
                     </div>
                 </div>
