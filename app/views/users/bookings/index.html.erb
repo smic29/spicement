@@ -15,7 +15,7 @@
         <% @bookings.each do |booking| %>
                 <tr>
                     <td><%= booking.b_reference.upcase %></td>
-                    <td><%= booking.quotation.client.name %></td>
+                    <td><%= booking.quotation.client.name.titleize %></td>
                     <td><%= booking.status %></td>
                     <td class="fw-light small"><%= time_ago_in_words(booking.updated_at) + ' ago' %></td>
                     <td>
