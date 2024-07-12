@@ -22,5 +22,8 @@
         <% end %>
       </div>
     </aside>
+    <% unless current_user %>
+      <%= render 'shared/attribution' %>
+    <% end %>
   </body>
 </html>
