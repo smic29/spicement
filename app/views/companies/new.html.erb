@@ -11,11 +11,11 @@
                             </p>
                             <%= form_with model: @company do |f| %>
                                 <div class="form-floating mb-3">
-                                    <%= f.text_field :name, class: "form-control", placeholder: "Company Name", required: true %>
+                                    <%= f.text_field :name, class: "form-control", placeholder: "Company Name", required: true, autocomplete: "off" %>
                                     <%= f.label :name, "Company Name" %>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <%= f.text_field :email, class: "form-control", placeholder: "Email Address", required: true %>
+                                    <%= f.text_field :email, class: "form-control", placeholder: "Email Address", required: true, autocomplete: "off" %>
                                     <%= f.label :email, "Email Address" %>
                                     <div class="form-text">
                                         This email will be used as your company's manager account.
@@ -24,7 +24,7 @@
                                 <div class="text-center">
                                     <%= f.submit "Apply", class: 'btn btn-outline-success' %>
                                 </div>
-                                <div class="text-start">
+                                <div class="text-start fw-light small">
                                     Have a company code? <%= link_to 'Log In', search_companies_path , class: "link-offset-3"%>
                                 </div>
                             <% end %>
