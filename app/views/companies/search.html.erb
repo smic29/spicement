@@ -1,23 +1,31 @@
-<%= turbo_frame_tag "auth_frame" do %>
-<div class="col-6 mx-auto shadow p-3 rounded">
-    <h4 class="font-robos">Enter Company Code</h4>
-    <%= form_with url: verify_companies_path, method: :post do |f| %>
-        <div class="col-6 mx-auto">
-            <div class="input-group mb-2">
-                <i class="bi bi-key input-group-text"></i>
-                <% unless @fail %>
-                <%= f.text_field :company_code, required: true, class: "form-control" %>
-                <% else %>
-                <%= f.text_field :company_code, required: true, class: "form-control is-invalid", value: @fail %>
-                <% end %>
+<div class="container-fluid vh-100">
+    <div class="row h-100 justify-content-center align-items-center">
+        <div class="col-12">
+            <div class="row text-center flex-column">
+                <div class="font-robo mb-3">
+                    <%= turbo_frame_tag "auth_frame" do %>
+                    <div class="col-6 mx-auto shadow p-3 rounded">
+                        <h4 class="font-robos">Enter Company Code</h4>
+                        <%= form_with url: verify_companies_path, method: :post do |f| %>
+                            <div class="col-6 mx-auto">
+                                <div class="input-group mb-2">
+                                    <i class="bi bi-key input-group-text"></i>
+                                    <% unless @fail %>
+                                    <%= f.text_field :company_code, required: true, class: "form-control" %>
+                                    <% else %>
+                                    <%= f.text_field :company_code, required: true, class: "form-control is-invalid", value: @fail %>
+                                    <% end %>
+                                </div>
+                            </div>
+                            <%= f.submit "Go", class: "btn btn-outline-success" %>
+                            <div class="text-start">
+                                Need a Company Account? <%= link_to 'Apply Here', new_company_path, class: "link-offset-3" %>
+                            </div>
+                        <% end %>
+                    </div>
+                    <% end %>
+                </div>
             </div>
         </div>
-        <%= f.submit "Go", class: "btn btn-outline-success" %>
-        <div class="text-start">
-            Need a Company Account? <%= link_to 'Apply', new_company_path, class: "link-offset-3" %>
-        </div>
-    <% end %>
+    </div>
 </div>
-
-
-<% end %>
