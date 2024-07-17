@@ -49,6 +49,7 @@ Rails.application.routes.draw do
 
   # Pages Routes
   get "login_signup" => "pages#login_signup", as: :auth
+  get "about" => "pages#about"
 
   # Company Routes
   resources :companies, only: [ :new, :create ] do
