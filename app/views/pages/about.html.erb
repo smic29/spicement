@@ -12,13 +12,11 @@
                         <a href="https://github.com/smic29/spicement" target="_blank">the repository</a>.
                     </p>
                     <div class="text-start mx-auto col-8 shadow-lg border rounded-3 p-3">
-                        <h2 class="font-robos">What can I do with it?</h2>
-                        <p>
-                            Instead of managing several spreadsheets to keep track of your clients, quotations, forwarders, and billing documents, Spicement allows you to manage them all in one place.
-                        </p>
-                        <p>
-                            This not only lessens the number of files you need to maintain, but it also lets you easily search, find, and open your intended files. In addition, you'll be able to generate pdf documents that you can send to your clients.    
-                        </p>
+                        <%= render 'pages/accordion' %>
+
+                        <div class="text-center mt-3">
+                            <%= link_to 'Home', root_path, class: "btn btn-sm btn-outline-secondary" %>
+                        </div>
                     </div>
                 </div>
             </div>
