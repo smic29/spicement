@@ -15,7 +15,9 @@
                 </div>
 
                 <div class="field input-group mb-2">
-                  <i class="bi bi-eye-slash input-group-text"></i>
+                  <div class="input-group-text" id="showPassword" data-controller="showpassword">
+                    <i class="bi bi-eye-slash"></i>
+                  </div>
                   <%= f.password_field :password, autocomplete: "current-password", required: true, class: "form-control" %>
                 </div>
               </div>
